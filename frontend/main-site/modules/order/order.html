@@ -1,0 +1,41 @@
+<div class="alert alert-info" role="alert">
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+  <span class="sr-only">Внимание:</span>
+  Меню от {{menu.createdAt | date: 'medium'}}
+</div>
+
+<div ng-repeat="i in _.range(5) track by $index">
+  <h2>{{daysOfWeek[$index]}}</h2>
+
+  <div class="container">
+    <div class="row">
+        <div class="col-md-5">
+          <div class="panel panel-default">
+            <div class="panel-heading">Меню</div>
+              <div class="panel-body">
+                <div class="list-group">
+                  <a href="#" class="list-group-item" ng-click="addItem(it._id, i)"
+                    ng-class="it.selected ? 'list-group-item-info' : ''"
+                    ng-repeat="it in menu[i]">
+                    {{it.name}}
+                    <span class="badge">{{it.cost}}</span>
+                  </a>
+                </div>
+              </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="panel panel-default">
+            <div class="panel-heading">Твой выход, Уася!</div>
+            <div class="panel-body">
+              <div class="list-group">
+                <a href="#" class="list-group-item" ng-click="removeItem(it.id, i)"
+                  ng-repeat="it in order[i] track by $index">{{it.name}}</a>
+              </div>
+            </div>
+            <div class="panel-footer">Сумма: <span class="badge badge-success" ng-bind="orderSum(i)"></span></div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<div ng-repeat="i in getNumber(5) track by $index">
+  <h2>{{daysOfWeek[$index]}}</h2>
+  <table class="table table-striped table-hover">
+    <tr>
+      <th>№</th>
+      <th>Название</th>
+      <th>Вес</th>
+      <th>Стоимость</th>
+    </tr>
+
+    <tr ng-repeat="it in menu[$index]">
+      <td>{{$index + 1}}</td>
+      <td>{{it.name}}</td>
+      <td>{{it.weight}}</td>
+      <td>{{it.cost}}</td>
+    </tr>
+  </table>
+</div>

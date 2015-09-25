@@ -1,0 +1,31 @@
+<!-- <div class="jumbotron">
+  <h1>Привет, друг. Ты не авторизован. Just do it! Right now!!111</h1>
+</div> -->
+
+<div class="bs-example">
+    <div class="alert alert-danger" role="alert" ng-bind="error" ng-show="error"></div>
+    <!-- <iframe src="sink.html" name="sink" style="display:none"></iframe> -->
+    <form class="form-horizontal" name="loginForm"
+      ng-submit="login(credentials)" novalidate form-autofill-fix>
+        <div class="form-group">
+            <label class="col-xs-2 control-label" for="inputError">Email</label>
+            <div class="col-xs-3">
+                <input type="email" ng-model="credentials.email" class="form-control" placeholder="Input with error">
+                <span class="help-block">Please enter a valid email address</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-2 control-label" for="inputWarning">Password</label>
+            <div class="col-xs-3">
+                <input type="password" ng-model="credentials.password"
+                  class="form-control" placeholder="Input with warning">
+                <span class="help-block">Password strength: Weak</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-offset-2 col-xs-10">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+        </div>
+    </form>
+</div>
