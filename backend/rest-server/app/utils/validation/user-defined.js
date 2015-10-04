@@ -15,5 +15,5 @@ module.exports = {
 
   isPassword: function (value) {
     return /^[\w\-]{6,30}$/.test(value ? value : '') ? null : 'Wrong password';
-  }
+  },
 }

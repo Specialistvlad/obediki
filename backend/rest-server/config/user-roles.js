@@ -2,21 +2,21 @@ var anonymous = [
   'create user',
   'login',
   'password reset',
-  'confirm email'
+  'confirm email',
   ];
 
 var user = [
-  'get next week menu'
+  'get next week menu',
 ];
 
 var manager = [
   'get current',
   'get menu',
-  'list menu'
+  'list menu',
 ];
 
 var admin = [
-  'oops'
+  'oops',
 ];
 
 user = user.concat(anonymous);

@@ -27,11 +27,15 @@ schema.statics.list = function list () {
   return this.find({}, pattern).sort({createdAt: -1});
 }
 
-schema.statics.getItem = function getList (id) {
+schema.statics.findById = function findById (id) {
   return Model.findOne({_id: id});
 }
 
-schema.statics.getCurrent = function getCurrent (id) {
+schema.statics.removeById = function removeById (id) {
+  return Model.findOneAndRemove({_id: id});
+}
+
+schema.statics.findCurrent = function findCurrent (id) {
   return Model.findOne({approved: true}).sort({createdAt: -1});
 }
 

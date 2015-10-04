@@ -3,7 +3,6 @@ var config = require('./../config');
 var morgan = require('morgan');
 var path = require('path');
 var express = require('express');
-var busboy = require('connect-busboy');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var passport = require('passport');
@@ -23,8 +22,6 @@ module.exports = function() {
   if (config.develop && config.web.apiDocsDir) {
     app.use('/apidoc', express.static(path.join(__dirname, config.web.apiDocsDir)));
   }
-  // Get all request data of the body (POST) parameters
-  app.use(busboy());
   // Parse application/json 5 MB Limit
   app.use(bodyParser.raw({limit: 5000}));
   // Parse application/json

@@ -1,0 +1,72 @@
+- 0.2.4
+- 0.2.1
+You can request info for a specific version with 'bower info angular-file-upload#<version>'
+vlad@v:~/Projects/fun/order-dinner$ bower install angular-file-upload#2.0.0
+bower angular-file-upload#2.0.0       not-cached git://github.com/nervgh/angular-file-upload.git#2.0.0
+bower angular-file-upload#2.0.0          resolve git://github.com/nervgh/angular-file-upload.git#2.0.0
+bower angular-file-upload#~2.1.4          cached git://github.com/nervgh/angular-file-upload.git#2.1.4
+bower angular-file-upload#~2.1.4        validate 2.1.4 against git://github.com/nervgh/angular-file-upload.git#~2.1.4
+bower angular-file-upload#2.0.0         download https://github.com/nervgh/angular-file-upload/archive/v2.0.0.tar.gz
+bower angular-file-upload#2.0.0          extract archive.tar.gz
+bower angular-file-upload#2.0.0         resolved git://github.com/nervgh/angular-file-upload.git#2.0.0
+bower angular#~1.2.11                     cached git://github.com/angular/bower-angular.git#1.2.28
+bower angular#~1.2.11                   validate 1.2.28 against git://github.com/angular/bower-angular.git#~1.2.11
+bower angular#~1.2.11                        new version for git://github.com/angular/bower-angular.git#~1.2.11
+bower angular#~1.2.11                    resolve git://github.com/angular/bower-angular.git#~1.2.11
+bower angular#~1.2.11                   download https://github.com/angular/bower-angular/archive/v1.2.29.tar.gz
+bower angular#~1.2.11                    extract archive.tar.gz
+bower angular#~1.2.11                   resolved git://github.com/angular/bower-angular.git#1.2.29
+bower angular#1.4.7                       cached git://github.com/angular/bower-angular.git#1.4.7
+bower angular#1.4.7                     validate 1.4.7 against git://github.com/angular/bower-angular.git#1.4.7
+bower angular#>=1.2.0                     cached git://github.com/angular/bower-angular.git#1.4.7
+bower angular#>=1.2.0                   validate 1.4.7 against git://github.com/angular/bower-angular.git#>=1.2.0
+bower angular#>1.2.0                      cached git://github.com/angular/bower-angular.git#1.4.7
+bower angular#>1.2.0                    validate 1.4.7 against git://github.com/angular/bower-angular.git#>1.2.0
+
+Unable to find a suitable version for angular, please choose one:
+  1) angular#~1.2.11 which resolved to 1.2.29 and is required by angular-file-upload#2.0.0
+  2) angular#1.4.6 which resolved to 1.4.6 and is required by app
+  3) angular#^1.1.5 which resolved to 1.4.6 and is required by angular-file-upload#2.1.4
+  4) angular#1.4.7 which resolved to 1.4.7 and is required by angular-route#1.4.7
+  5) angular#>=1.2.0 which resolved to 1.4.7 and is required by autofill-directive#2.0.0
+  6) angular#>1.2.0 which resolved to 1.4.7 and is required by ng-file-upload#9.0.6
+
+Prefix the choice with ! to persist it to bower.json
+
+? Answer: 1
+
+Unable to find a suitable version for angular-file-upload, please choose one:
+  1) angular-file-upload#2.0.0 which resolved to 2.0.0
+  2) angular-file-upload#~2.1.4 which resolved to 2.1.4 and is required by app
+
+Prefix the choice with ! to persist it to bower.json
+
+? Answer: 1
+bower angular#~1.2.11                    install angular#1.2.29
+bower angular-file-upload#2.0.0          install angular-file-upload#2.0.0
+
+angular#1.2.29 bower_components/angular
+
+angular-file-upload#2.0.0 bower_components/angular-file-upload
+└── angular#1.2.29
+vlad@v:~/Projects/fun/order-dinner$
+vlad@v:~/Projects/fun/order-dinner$ cp bower_components/angular-file-upload/dist/angular-file-upload.min.js build/
+vlad@v:~/Projects/fun/order-dinner$ bower uninstall angular-file-upload
+bower uninstall     angular-file-upload
+vlad@v:~/Projects/fun/order-dinner$ bower install ng-file-upload --save
+bower ng-file-upload#*          cached git://github.com/danialfarid/angular-file-upload-bower.git#9.0.6
+bower ng-file-upload#*        validate 9.0.6 against git://github.com/danialfarid/angular-file-upload-bower.git#*
+bower angular#1.4.7             cached git://github.com/angular/bower-angular.git#1.4.7
+bower angular#1.4.7           validate 1.4.7 against git://github.com/angular/bower-angular.git#1.4.7
+bower angular#>1.2.0            cached git://github.com/angular/bower-angular.git#1.4.7
+bower angular#>1.2.0          validate 1.4.7 against git://github.com/angular/bower-angular.git#>1.2.0
+bower angular#1.4.6             cached git://github.com/angular/bower-angular.git#1.4.6
+bower angular#1.4.6           validate 1.4.6 against git://github.com/angular/bower-angular.git#1.4.6
+bower angular-file-upload#~2.1.4           cached git://github.com/nervgh/angular-file-upload.git#2.1.4
+bower angular-file-upload#~2.1.4         validate 2.1.4 against git://github.com/nervgh/angular-file-upload.git#~2.1.4
+bower angular#>=1.2.0                      cached git://github.com/angular/bower-angular.git#1.4.7
+bower angular#>=1.2.0                    validate 1.4.7 against git://github.com/angular/bower-angular.git#>=1.2.0
+
+Please note that,
+  app depends on angular#1.4.6 which resolved to angular#1.4.6
+  ng-file-upload#9.0.6, ng-file-upload#9.0.6 depends on angular#>1.2.0 which resolved to angular#1.4.7

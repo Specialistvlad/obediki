@@ -1,34 +1,9 @@
 var util = require('util');
 var service = require('./service');
 var responseHelper = require('./../../utils/responseHelper');
+var def = require('./../../utils/defaultController');
 var validation = require('./validation');
 var passport = require('./passport');
-
-function def(serviceMethod) {
-  return function defaultController(req, res, next) {
-      // Sanitarize _id
-      if (req.body._id) {
-        delete req.body._id;
-      }
-      var args = [];
-      if (req.params.id) {
-        args.push(req.param.id);
-      }
-      if (req.body) {
-        args.push(req.body);
-      }
-      serviceMethod.apply(null, args).then(function(data) {
-        // If find by id and result is null
-        if (req.params.id && !data) {
-          responseHelper.noContent(res);
-        } else {
-          responseHelper.ok(res, data);
-        }
-      }, function(err) {
-        responseHelper.badRequest(res, err);
-      });
-    };
-}
 
 function confirmEmail(req, res, next) {
   service.confirmEmail(req.params.token).then(function() {

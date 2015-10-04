@@ -1,7 +1,7 @@
 var Promise = require('bluebird');
 var xlsx = require('xlsx');
 
-function parseViki(fileName) {
+module.exports = function parseViki(argument, options) {
   var maxThingsPerDay = 150;
   var maxRows;
   var daysOfWeek = ['понедельник', 'вторник', 'среда' , 'четверг', 'пятница'];
@@ -13,8 +13,18 @@ function parseViki(fileName) {
   };
 
   return new Promise(function(resolve, reject) {
+    var workbook;
     try {
-      workbook = xlsx.readFile(fileName);
+      if (options && options.type && options.type === 'binary') {
+        var data = new Uint8Array(argument);
+        var arr = new Array();
+        for (var i = 0; i != data.length; ++i) {
+          arr[i] = String.fromCharCode(data[i]);
+        }
+        workbook = xlsx.read(arr.join(""), options);
+      } else {
+        workbook = xlsx.readFile(argument);
+      }
       var worksheet = workbook.Sheets[workbook.SheetNames[0]];
     } catch (e) {
         return reject(e);
@@ -24,7 +34,7 @@ function parseViki(fileName) {
     var dayMenu;
     var dayIndex = -1;
     var skip;
-    var i=0;
+    var i = 0;
 
     while (true) {
       i++;
@@ -46,7 +56,6 @@ function parseViki(fileName) {
           dayMenu = [];
           weekMenu[j] = dayMenu;
           skip = true;
-          console.log('day found!', value);
           break;
         }
       }
@@ -72,7 +81,3 @@ function parseViki(fileName) {
     resolve(weekMenu);
   });
 }
-
-module.exports = {
-  parse: parseViki,
-};

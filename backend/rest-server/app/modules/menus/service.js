@@ -1,27 +1,27 @@
 var Model = require('./model');
 var vikiImport = require('./viki-import');
 
-function createMenu (argument) {
-  return vikiImport.parse(argument)
-    .then(Model.createMenu);
+function importMenu (buffer) {
+  return vikiImport(buffer, { type: 'binary' }).then(Model.createMenu);
 }
 
 function list() {
+  console.log('list');
   return Model.list();
 }
 
-function getItem(id) {
-  return Model.getItem(id);
+function find(id) {
+  return Model.findById(id);
 }
 
-function getCurrent() {
-  return Model.getCurrent();
+function findCurrent() {
+  return Model.findCurrent();
 }
 
 module.exports = {
-  list: list,
-  getItem: getItem,
-  getCurrent: getCurrent,
-  getNextWeek: getCurrent,
-  createMenu: createMenu
+  list,
+  find,
+  findCurrent,
+  importMenu,
+  findNextWeek: findCurrent,
 };

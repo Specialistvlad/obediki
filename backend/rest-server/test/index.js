@@ -16,7 +16,8 @@ before(function (done) {
 });
 
 //helpers.importTest('example', __dirname);
-helpers.importTest('user', __dirname);
+helpers.importTest('users', __dirname);
+helpers.importTest('menus', __dirname);
 
 after(function (done) {
     done();

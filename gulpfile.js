@@ -20,21 +20,22 @@ var files = {
   templates: [
     prefix+'/templates/*.html',
     prefix+'/modules/**/*.html',
-    prefix+'/directives/**/*.html'
+    prefix+'/directives/**/*.html',
     ],
   js: [
+    'bower_components/jquery/dist/jquery.js',
     'bower_components/angular/angular.js',
     'bower_components/angular-route/angular-route.js',
     'bower_components/angular-resource/angular-resource.js',
-    'bower_components/autofill-directive/autofill-directive.js',
-    'bower_components/jquery/dist/jquery.js',
+    'bower_components/ng-file-upload/ng-file-upload.js',
+    'bower_components/angularUtils-pagination/dirPagination.js',
     'bower_components/bootstrap/dist/js/bootstrap.js',
     'bower_components/lodash/lodash.js',
     prefix+'/*.js',
     prefix+'/resources/*.js',
     prefix+'/modules/**/*.js',
     prefix+'/services/**/*.js',
-    prefix+'/directives/**/*.js'
+    prefix+'/directives/**/*.js',
   ],
   img: prefix+'/assets/img/*',
   sass: [

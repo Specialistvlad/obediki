@@ -1,4 +1,4 @@
-angular.module('app', ['ngRoute', 'ngResource'])
+angular.module('app', ['ngRoute', 'ngResource', 'ngFileUpload', 'angularUtils.directives.dirPagination'])
 
 // configure our routes
 .config(function ($routeProvider, $locationProvider) {
@@ -12,6 +12,9 @@ angular.module('app', ['ngRoute', 'ngResource'])
 
   // use the HTML5 History API
   $locationProvider.html5Mode(true);
+})
+.config(function(paginationTemplateProvider) {
+    paginationTemplateProvider.setPath('templates/pagination.html');
 })
 .constant('_', window._)
 .run(function($rootScope, AuthService) {

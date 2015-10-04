@@ -64,6 +64,10 @@ var config = require('./../../config');
 
 function genericResponse(res, data, code) {
   var template;
+
+  if (typeof data === 'string') {
+    data = { message: data};
+  }
   if (code < 400) {
     template = data;
 
