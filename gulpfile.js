@@ -1,3 +1,4 @@
+var config = require('./backend/rest-server/config');
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
@@ -88,26 +89,34 @@ gulp.task('templates', function() {
 });
 
 gulp.task('js', function() {
-  return gulp.src(files.js)
+  var tmp = gulp.src(files.js)
     // .pipe(jshint('.jshintrc'))
     // .pipe(jshint.reporter('default'))
-    .pipe(concat('app.js'))
+    .pipe(concat('app.js'));
+
+  if (!config.develop) {
+    return tmp//.pipe(rename({suffix: '.min'}))
+    .pipe(uglify({mangle: false}))
     .pipe(gulp.dest('build'))
-    //.pipe(rename({suffix: '.min'}))
-    //.pipe(uglify({mangle: false}))
-    //.pipe(gulp.dest('build'))
+  } else {
+    return tmp.pipe(gulp.dest('build'));
+  }
     //.pipe(notify({ message: 'Scripts task complete' }));
 });
 
 gulp.task('sass', function() {
-  return gulp.src(files.sass)
+  var tmp = gulp.src(files.sass)
     .pipe(sass().on('error', sass.logError))
     .pipe(autoprefixer('last 2 version'))
-    .pipe(concat('app.css'))
-    .pipe(gulp.dest('build'))
-    //.pipe(rename({ suffix: '.min' }))
-    //.pipe(minifycss())
-    //.pipe(gulp.dest('build'))
+    .pipe(concat('app.css'));
+
+  if (!config.develop) {
+    return tmp//.pipe(rename({ suffix: '.min' }))
+      .pipe(minifycss())
+      .pipe(gulp.dest('build'))
+  } else {
+    return tmp.pipe(gulp.dest('build'));
+  }
     //.pipe(notify({ message: 'Styles task complete' }));
 });
 
