@@ -32,8 +32,8 @@
   "scripts": {
     "staging": "npm run stop; npm run dep; NODE_ENV=staging npm start",
     "prod": "npm run stop; npm run dep; NODE_ENV=production npm start",
-    "start": "pm2 start index.js",
-    "stop": "pm2 stop index.js",
+    "start": "pm2 start index.js --name rest-server",
+    "stop": "pm2 stop rest-server",
     "dep": "npm install",
     "pre-commit": "npm run test",
     "test": "node_modules/.bin/mocha --timeout 500 -r should test/index.js"

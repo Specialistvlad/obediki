@@ -46,7 +46,7 @@ module.exports = function() {
     store: new redisStore({})
   }));
 
-  // Passport:
+  // Passport
   app.use(passport.initialize());
   app.use(passport.session());
 

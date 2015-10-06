@@ -1,7 +1,7 @@
-<div ng-class="classForAlert()" class="alert" role="alert">
+<div class="alert alert-warning" role="alert">
   <span ng-hide="menu.seen">Это меню еще не проверено:&nbsp;</span>
   <span ng-show="menu.seen">Вы можете:&nbsp;</span>
-  <button type="button" class="btn btn-success" ng-show="!menu.seen || !menu.approved" ng-click="approveMenu()">Апрувнуть меню</button>
+  <button type="button" class="btn btn-success" ng-show="((!menu.seen) || (!menu.approved))" ng-click="approveMenu()">Апрувнуть меню</button>
   <button type="button" class="btn btn-danger" ng-show="!menu.seen || menu.approved" ng-click="rejectMenu()">Отклонить</button>
   <span ng-show="message" ng-bind="message"></span>
 </div>

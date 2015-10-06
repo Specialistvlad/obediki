@@ -22,7 +22,7 @@ angular.module('app').controller('menuCntrl', ['$scope', '$routeParams', 'menusR
       });
     }
 
-    $scope.rejectMenu = function() { 
+    $scope.rejectMenu = function() {
       $scope.menu.seen = true;
       $scope.menu.approved = false;
       $scope.message = null;
@@ -32,13 +32,7 @@ angular.module('app').controller('menuCntrl', ['$scope', '$routeParams', 'menusR
       });
     }
 
-    $scope.classForAlert = function() {
-      return $scope.seen ?
-        ($scope.approved ? 'alert-success' : 'alert-danger') : 'alert-warning';
-    }
-
     menusResource.get({menuId: $routeParams.menuId}, function(data) {
       $scope.menu = data;
-      $scope.menu.seen = false;
     });
 }]);

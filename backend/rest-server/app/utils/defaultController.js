@@ -13,7 +13,7 @@ module.exports = function def(serviceMethod) {
       if (req.body) {
         args.push(req.body);
       }
-      
+
       serviceMethod.apply(null, args).then(function(data) {
         // If find by id and result is null
         if (req.params.id && !data) {
