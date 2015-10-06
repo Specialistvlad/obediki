@@ -1,10 +1,17 @@
-angular.module('app').service('Session', function () {
+angular.module('app').service('Session', function ($cookies) {
   this.create = function (user) {
     this.user = user;
+    $cookies.putObject('user', user);
   };
 
   this.destroy = function () {
     this.user = null;
+    $cookies.remove('user');
+  };
+
+  this.restore = function () {
+    var user = $cookies.getObject('user');
+    this.create(user);
   };
 
   return this;

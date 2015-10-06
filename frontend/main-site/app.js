@@ -1,4 +1,4 @@
-angular.module('app', ['ngRoute', 'ngResource', 'ngFileUpload', 'angularUtils.directives.dirPagination'])
+angular.module('app', ['ngRoute', 'ngResource', 'ngCookies', 'ngFileUpload', 'angularUtils.directives.dirPagination'])
 
 // configure our routes
 .config(function ($routeProvider, $locationProvider) {
@@ -17,6 +17,7 @@ angular.module('app', ['ngRoute', 'ngResource', 'ngFileUpload', 'angularUtils.di
     paginationTemplateProvider.setPath('templates/pagination.html');
 })
 .constant('_', window._)
-.run(function($rootScope, AuthService) {
+.run(function($rootScope, Session, AuthService) {
+  Session.restore();
   $rootScope.$on('$routeChangeStart', AuthService.checkRestrictions);
 });

@@ -27,6 +27,7 @@ var files = {
     'bower_components/angular/angular.js',
     'bower_components/angular-route/angular-route.js',
     'bower_components/angular-resource/angular-resource.js',
+    'bower_components/angular-cookies/angular-cookies.js',
     'bower_components/ng-file-upload/ng-file-upload.js',
     'bower_components/angularUtils-pagination/dirPagination.js',
     'bower_components/bootstrap/dist/js/bootstrap.js',
