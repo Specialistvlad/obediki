@@ -1,10 +1,10 @@
-<div class="alert alert-info" role="alert">
+<div ng-if="menuExists()" class="alert alert-info" role="alert">
   <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
   <span class="sr-only">Внимание:</span>
   Меню от {{menu.createdAt | date: 'medium'}}
 </div>
 
-<div ng-repeat="i in _.range(5) track by $index">
+<div ng-if="menuExists()" ng-repeat="i in _.range(5) track by $index">
   <h2>{{daysOfWeek[$index]}}</h2>
 
   <div class="container">
@@ -38,4 +38,9 @@
         </div>
     </div>
   </div>
+</div>
+
+<div ng-class="menuExists() ? hidden : ''" class="jumbotron">
+  <h1>Ничего нет.</h1>
+  <p>Может администратор забыл добавить вам меню на следующую неделю? Свяжись с ним, чтобы узнать подробности.</p>
 </div>

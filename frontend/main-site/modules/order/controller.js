@@ -9,7 +9,8 @@ angular.module('app').controller('orderCntrl', ['$scope', '$routeParams', 'menus
       3: [],
       4: []
     };
-
+    $scope.menu = {};
+    
     menusResource.get({menuId: 'next-week'}, function(data) {
       $scope.menu = data;
     });
@@ -17,6 +18,10 @@ angular.module('app').controller('orderCntrl', ['$scope', '$routeParams', 'menus
     // orderResource.get({}, function(data) {
     //    $scope.order = data;
     // });
+
+    $scope.menuExists = function() {
+        return !!$scope.menu._id;
+    };
 
     $scope.removeItem = function(orderItemId, dayIndex) {
       var orderItem = _.find($scope.order[dayIndex], {id: orderItemId});

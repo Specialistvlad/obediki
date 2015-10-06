@@ -7,6 +7,10 @@ var schema = mongoose.Schema({
     type: 'Boolean',
     default: false
   },
+  seen: {
+    type: 'Boolean',
+    default: false
+  },
   importedFrom: String,
   '0': [MenuItem],
   '1': [MenuItem],
@@ -21,7 +25,8 @@ schema.plugin(require('mongoose-unique-validator'));
 schema.statics.list = function list () {
   var pattern = {
     approved: 1,
-    createdAt: 1
+    createdAt: 1,
+    seen: 1,
   };
 
   return this.find({}, pattern).sort({createdAt: -1});

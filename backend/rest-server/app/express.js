@@ -3,6 +3,7 @@ var config = require('./../config');
 var morgan = require('morgan');
 var path = require('path');
 var express = require('express');
+var multer = require('multer');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var passport = require('passport');
@@ -28,6 +29,13 @@ module.exports = function() {
   app.use(bodyParser.json());
   // Parse application/x-www-form-urlencoded
   app.use(bodyParser.urlencoded({extended: true}));
+
+  app.multer = multer({
+    limits: {
+      fileSize: 10 * 1000000
+      //TODO Need "file too large" exception handler
+    }
+  });
 
   // Configure Application Authentication
   app.use(cookieParser(config.web.cookieKey));

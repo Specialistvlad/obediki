@@ -19,5 +19,7 @@ module.exports = {
   create: create,
   list: def(service.list),
   find: def(service.find),
+  update: def(service.update),
+  remove: def(service.remove),
   getNextWeek: def(service.findCurrent),
 };
