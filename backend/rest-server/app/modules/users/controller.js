@@ -1,6 +1,5 @@
 var util = require('util');
 var service = require('./service');
-var responseHelper = require('./../../utils/responseHelper');
 var def = require('./../../utils/defaultController');
 var validation = require('./validation');
 var passport = require('./passport');
@@ -23,25 +22,25 @@ function createTokenForPasswordReset(req, res) {
       return service.createTokenForPasswordReset(data.email);
     })
     .then(function (data) {
-      responseHelper.ok(res, data);
+      res.ok(data);
     }, function (err) {
-      responseHelper.badRequest(res, err);
+      res.badRequest(err);
     });
 }
 
 function checkToken(req, res, next) {
   var token = req.params.token;
   if (!token) {
-    return responseHelper.badRequest(res, 'Token is required');
+    return res.badRequest('Token is required');
   }
 
   service.findByResetPasswordToken(token)
     .then(user.checkResetPasswordToken)
     .then(function (data) {
-      responseHelper.ok(res, data);
+      res.ok(data);
     }, function (err) {
       console.log(err);
-      responseHelper.badRequest(res, err);
+      res.badRequest(err);
     });
 }
 
@@ -56,12 +55,12 @@ function changePassword(req, res, next) {
       user.checkResetPasswordToken(token)
       .then(function() {
         service.setPassword(user, password).then(function() {
-          return responseHelper.ok(res, 'Password changed successfully');
+          return res.ok('Password changed successfully');
         });
       });
     });
   } else {
-    responseHelper.badRequest(res, 'Token is required');
+    res.badRequest('Token is required');
   }
 }
 

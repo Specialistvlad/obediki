@@ -7,12 +7,15 @@ var anonymous = [
 
 var user = [
   'get next week menu',
+  'get orders',
+  'update orders',
 ];
 
 var manager = [
-  'get current',
-  'get menu',
-  'list menu',
+  'create menus',
+  'update menus',
+  'get menus',
+  'list menus',
 ];
 
 var admin = [

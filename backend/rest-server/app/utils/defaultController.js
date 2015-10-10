@@ -1,5 +1,3 @@
-var responseHelper = require('./responseHelper');
-
 module.exports = function def(serviceMethod) {
   return function defaultController(req, res, next) {
       // Sanitarize _id
@@ -14,15 +12,19 @@ module.exports = function def(serviceMethod) {
         args.push(req.body);
       }
 
+      if (req.user) {
+        args.push(req.user);
+      }
+
       serviceMethod.apply(null, args).then(function(data) {
         // If find by id and result is null
-        if (req.params.id && !data) {
-          responseHelper.noContent(res);
+        if (!data) {
+          res.noContent();
         } else {
-          responseHelper.ok(res, data);
+          res.ok(data);
         }
       }, function(err) {
-        responseHelper.badRequest(res, err);
+        res.badRequest(err);
       });
     };
 };

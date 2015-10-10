@@ -1,5 +1,5 @@
-angular.module('app').controller('orderCntrl', ['$scope', '$routeParams', 'menusResource',
-  function($scope, $routeParams, menusResource) {
+angular.module('app').controller('orderCntrl', ['$scope', '$routeParams', 'menusResource', 'ordersResource',
+  function($scope, $routeParams, menusResource, ordersResource) {
     $scope.daysOfWeek = ['Понедельник', 'Вторник', 'Среда' , 'Четверг', 'Пятница'];
     $scope._ = _;
     $scope.order = {
@@ -10,14 +10,16 @@ angular.module('app').controller('orderCntrl', ['$scope', '$routeParams', 'menus
       4: []
     };
     $scope.menu = {};
-    
+
     menusResource.get({menuId: 'next-week'}, function(data) {
       $scope.menu = data;
     });
 
-    // orderResource.get({}, function(data) {
-    //    $scope.order = data;
-    // });
+    ordersResource.get({orderId: 'next-week'}, function(data) {
+       if (!data) {
+         $scope.order = data;
+       }
+    });
 
     $scope.menuExists = function() {
         return !!$scope.menu._id;
@@ -44,6 +46,7 @@ angular.module('app').controller('orderCntrl', ['$scope', '$routeParams', 'menus
         if (menuItem && menuItems.length === 0) {
           menuItem.selected = false;
         }
+        ordersResource.save({orderId: 'next-week'}, $scope.order);
       }
     };
 
@@ -55,10 +58,12 @@ angular.module('app').controller('orderCntrl', ['$scope', '$routeParams', 'menus
         orderItem.id = orderItem._id;
         delete orderItem._id;
         $scope.order[dayIndex].push(orderItem);
+        ordersResource.save({orderId: 'next-week'}, $scope.order[dayIndex]);
+        console.log($scope.order);
       }
     };
 
     $scope.orderSum = function(dayIndex) {
-      return _.sum($scope.order[dayIndex], 'cost');
+      return _.sum($scope.order, 'cost');
     };
 }]);

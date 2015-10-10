@@ -1,7 +1,7 @@
 module.exports = {
     rightCredentials: {
-      email: 'email@example.com',
-      password: 'testtest'
+      email: 'emailll@example.com',
+      password: 'testasdtest'
     },
     sameEmail: {
       email: 'same_email@example.com',

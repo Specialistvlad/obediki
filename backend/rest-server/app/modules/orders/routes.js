@@ -2,7 +2,8 @@ var cnt = require('./controller');
 
 module.exports = {
   register: function(app, roles) {
-    app.get('/api/order/current', roles.can('get current order'), cnt.getCurrent);
-    app.get('/api/order/current', roles.can('update current order'), cnt.updateCurrent);
+    app.put('/api/orders/next-week', roles.can('update next-week orders'), cnt.create);
+    app.post('/api/orders/:id', roles.can('create orders'), cnt.update);
+    app.get('/api/orders/:id', roles.can('get orders'), cnt.getNextWeek);
   }
 };

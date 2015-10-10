@@ -1,7 +1,7 @@
 var ConnectRoles = require('connect-roles');
-var responseHelper = require('./responseHelper');
 
 var userRoles = require('./../../config').userRoles;
+var dictUserRoles = require('./../dicts/user-roles').keys;
 
 module.exports = function(app) {
   // Authentication
@@ -10,14 +10,23 @@ module.exports = function(app) {
     userProperty: 'user'
   });
   app.use(roles.middleware());
-  roles.use(authHandler);
+  roles.use(authorizationHandler);
   return roles;
 };
 
-function authHandler(req, action) {
-  return userRoles.anonymous.indexOf(action) > -1;
+function authorizationHandler(req, action) {
+  if (req.user) {
+    if (req.user.role && dictUserRoles.indexOf(req.user.role) > -1 && userRoles[req.user.role]) {
+      return userRoles[req.user.role].indexOf(action) > -1;
+    } else {
+      //console.log('User or his role not found!', req.user);
+      return false;
+    }
+  } else {
+    return userRoles[dictUserRoles[0]].indexOf(action) > -1;
+  }
 }
 
 function failureHandler(req, res, action) {
-  responseHelper.forbidden(res, 'Access Denied - You don\'t have permission to: ' + action);
+  res.forbidden('Access Denied - You don\'t have permission to: ' + action);
 }

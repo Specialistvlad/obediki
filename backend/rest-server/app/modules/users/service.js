@@ -5,19 +5,31 @@ var validation = require('./validation');
 function create(data) {
   var model;
   return validation.create(data)
-  .then(function (data) {
-    model = new Model({
-      email: {
-        value: data.email
-      },
-      credentials: {
-        password: data.password
+    .then(function (data) {
+      var template = {
+        email: {
+          value: data.email
+        },
+        credentials: {
+          password: data.password
+        }
+      };
+      if (data.role) {
+        template.role = data.role;
       }
+      model = new Model(template);
+      return model.generateEmailToken();
+    })
+    .then(function() {
+      return model.save();
     });
-    return model.generateEmailToken();
-  })
-  .then(function() {
-    return model.save();
+}
+
+function createIfNotExists(data) {
+  return findByEmail(data.email).then(function (res) {
+    if (!res) {
+      return create(data);
+    }
   });
 }
 
@@ -118,11 +130,12 @@ function createTokenForPasswordReset(data) {
 
 module.exports = {
   create,
+  createIfNotExists,
   findByEmailAndPassword,
   findById,
   findByEmail,
   confirmEmail,
   findByResetPasswordToken,
   setPassword,
-  createTokenForPasswordReset
+  createTokenForPasswordReset,
 };

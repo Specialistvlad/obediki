@@ -28,6 +28,10 @@ describe('with right token', function () {
     return apiConfirmEmail(confirmObject.token, 200);
     // TODO Check confirmation description
   });
+
+  after(function () {
+    return removeUserByEmail(fixture.confirmEmail.email);
+  });
 });
 
 describe('with random token', function () {

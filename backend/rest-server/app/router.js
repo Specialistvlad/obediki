@@ -1,7 +1,6 @@
 var config = require('./../config');
 var path = require('path');
 var express = require('express');
-var responseHelper = require('./utils/responseHelper');
 
 // Short notify
 // POST     C reate
@@ -42,11 +41,11 @@ function defineMainSiteRoutes(app, routes) {
 }
 
 function notFoundHandler(req, res) {
-  responseHelper.notFound(res);
+  req.notFound(res);
 }
 
 function exceptionHandler(err, req, res, next) {
-  responseHelper.badRequest(res, err.stack);
+  req.badRequest(res, err.stack);
 }
 
 function exceptionExample(req, res, next) {

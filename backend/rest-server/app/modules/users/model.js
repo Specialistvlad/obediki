@@ -8,7 +8,7 @@ var unixtime = require('unix-timestamp');
 
 var secret = 'asd1234567890-=fghjklzxcvbnm,.qwertyuiopasdfghjkl;';
 var expireSeconds = 1000;
-var expireResetPasswordSeconds = 60 * 60;
+var expireResetPasswordSeconds = 60 * 60 * 24;
 
 var schema = mongoose.Schema({
   credentials: {
@@ -44,6 +44,10 @@ var schema = mongoose.Schema({
       expireAt: Number,
       confirmedAt: Date
     }
+  },
+  role: {
+    type: String,
+    default: 'user'
   }
 });
 

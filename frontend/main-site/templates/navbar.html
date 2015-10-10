@@ -12,20 +12,11 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-            role="button" aria-haspopup="true" aria-expanded="false">Привет, Уася
-            <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a>Профиль</a></li>
-            <li role="separator" class="divider"></li>
-            <li class="dropdown-header">Разделитель чо</li>
-            <li><a ng-click="logout()">Выйти</a></li>
-          </ul>
-        </li>
-          <li><a href="menus">Апрув меню</a></li>
+        <li>{{currentUser.email}}</li>
+        <li><a href="/menus">Апрув меню</a></li>
         <li><a href="/summary">Текущая неделя</a></li>
-        <li><a href="/order">Заказ на следующую неделю</a></li>
+        <li><a href="/order">Сделать заказ</a></li>
+        <li><a ng-click="logout()">Выйти</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
       </ul>

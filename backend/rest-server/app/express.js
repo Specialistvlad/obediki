@@ -10,6 +10,8 @@ var passport = require('passport');
 var cookieParser = require('cookie-parser');
 var compression = require('compression');
 var redisStore = require('connect-redis')(session);
+var namedCodes = require('express-named-codes');
+var standartResponse = require('./utils/standart-response');
 
 // Our middleware
 var authorization = require('./utils/authorization');
@@ -45,6 +47,8 @@ module.exports = function() {
     saveUninitialized: false,
     store: new redisStore({})
   }));
+
+  app.use(namedCodes.middleware([], standartResponse));
 
   // Passport
   app.use(passport.initialize());

@@ -24,6 +24,10 @@ describe('with right credentials', function () {
   it('should works', function handler() {
     return doRequest(fixture.login, 200);
   });
+
+  after(function () {
+    return removeUserByEmail(fixture.login.email);
+  });
 });
 
 describe('with bad credentials', function () {

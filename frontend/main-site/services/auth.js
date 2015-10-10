@@ -2,6 +2,7 @@ angular.module('app').service('Session', function ($cookies) {
   this.create = function (user) {
     this.user = user;
     $cookies.putObject('user', user);
+    return user;
   };
 
   this.destroy = function () {
@@ -11,10 +12,10 @@ angular.module('app').service('Session', function ($cookies) {
 
   this.restore = function () {
     var user = $cookies.getObject('user');
-    this.create(user);
+    if (user) {
+      return this.create(user);
+    }
   };
-
-  return this;
 })
 
 angular.module('app').factory('AuthService', function ($http, $location, Session) {

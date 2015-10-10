@@ -14,9 +14,9 @@ describe('with right credentials', function () {
     //TODO Check return object
   });
 
-  // after(function () {
-  //   return removeUserByEmail(fixture.rightCredentials.email);
-  // });
+  after(function () {
+    return removeUserByEmail(fixture.rightCredentials.email);
+  });
 });
 
 describe('with same email', function () {

@@ -1,4 +1,4 @@
-var langs = require('./lang/enum');
+var langs = require('./langs/enum');
 var _ = require('lodash');
 
 var defaultLang = 'eng';

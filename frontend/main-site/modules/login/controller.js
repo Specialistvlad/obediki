@@ -3,7 +3,7 @@ angular.module('app').controller('loginCntrl',
 function($rootScope, $scope, AuthService) {
   $scope.error = null;
   $scope.credentials = {
-    email: 'email@example.com',
+    email: 'admin@example.com',
     password: 'testtest'
   };
 
