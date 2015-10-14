@@ -7,8 +7,7 @@ var anonymous = [
 
 var user = [
   'get next week menu',
-  'get orders',
-  'update orders',
+  'have next week order',
 ];
 
 var manager = [
@@ -19,7 +18,7 @@ var manager = [
 ];
 
 var admin = [
-  'oops',
+  'list users',
 ];
 
 user = user.concat(anonymous);

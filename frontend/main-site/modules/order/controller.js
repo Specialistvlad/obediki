@@ -16,14 +16,26 @@ angular.module('app').controller('orderCntrl', ['$scope', '$routeParams', 'menus
     });
 
     ordersResource.get({orderId: 'next-week'}, function(data) {
-       if (!data) {
+       if (data._id) {
          $scope.order = data;
+         $scope.highlightItems();
        }
     });
 
     $scope.menuExists = function() {
         return !!$scope.menu._id;
     };
+
+    $scope.highlightItems = function() {
+      for (var i = 0; i < 5; i++) {
+        $scope.order[i].map(function (it) {
+          var menuItem = _.find($scope.menu[i], {_id: it.id});
+          if (menuItem) {
+            menuItem.selected = true;
+          }
+        })
+      }
+    }
 
     $scope.removeItem = function(orderItemId, dayIndex) {
       var orderItem = _.find($scope.order[dayIndex], {id: orderItemId});
@@ -58,8 +70,7 @@ angular.module('app').controller('orderCntrl', ['$scope', '$routeParams', 'menus
         orderItem.id = orderItem._id;
         delete orderItem._id;
         $scope.order[dayIndex].push(orderItem);
-        ordersResource.save({orderId: 'next-week'}, $scope.order[dayIndex]);
-        console.log($scope.order);
+        ordersResource.save({orderId: 'next-week'}, $scope.order);
       }
     };
 

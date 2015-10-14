@@ -2,7 +2,7 @@ var cnt = require('./controller');
 
 module.exports = {
   register: function(app, roles) {
-    app.get('/api/users', cnt.list);
+    app.get('/api/users', roles.can('list users'), cnt.list);
     app.post('/api/users', cnt.create);
     app.post('/api/users/session', cnt.login);
     //app.delete('/api/users/session', roles.can('login'), cnt.logout;
