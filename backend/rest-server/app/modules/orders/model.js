@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var MenuItem = require('./../menus/schema').MenuItem;
+var MenuItem = new mongoose.Schema(require('./../menus/schema').MenuItem);
 MenuItem.add({
   id: {
     required: true,

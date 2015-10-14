@@ -1,6 +1,6 @@
 'use strict';
 var mongoose = require('mongoose');
-var MenuItem = require('./schema').MenuItem;
+var MenuItem = new mongoose.Schema(require('./schema').MenuItem);
 
 var schema = mongoose.Schema({
   approved: {

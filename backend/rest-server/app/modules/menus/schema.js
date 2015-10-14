@@ -1,12 +1,12 @@
 var mongoose = require('mongoose');
 
-var MenuItem = new mongoose.Schema({
+var MenuItem = {
   name: String,
   description: String,
   count: String,
   measureBy: String,
   cost: String
-});
+};
 
 module.exports = {
   MenuItem: MenuItem

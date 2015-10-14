@@ -7,7 +7,8 @@ function create (req, res) {
       .then(function(menuItem) {
         res.ok(menuItem);
       }, function(err) {
-        res.badRequest('Error while parsing file');
+        err.message = 'Error while parsing file';
+        res.badRequest(err);
       });
   } else {
     res.badRequest('Unknown error');

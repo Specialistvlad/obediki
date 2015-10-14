@@ -19,7 +19,8 @@ module.exports = function genericResponse(res, code, data) {
       }
     }
   } else {
-    template = _.merge({status: code + ' ' + http.STATUS_CODES[code]}, data);
+    console.log(data);
+    template = _.merge({}, data);
     if (config.web.logErrorResponse) {
       console.info('\r\nResponse:', http.STATUS_CODES[code],
         util.inspect(template, false, null));
