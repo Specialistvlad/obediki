@@ -67,6 +67,7 @@ function changePassword(req, res, next) {
 module.exports = {
   create: def(service.create),
   login: passport.login,
+  list: def(service.list),
   createTokenForPasswordReset: createTokenForPasswordReset,
   checkToken: checkToken,
   changePassword: changePassword,

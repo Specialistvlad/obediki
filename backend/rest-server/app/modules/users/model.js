@@ -51,6 +51,16 @@ var schema = mongoose.Schema({
   }
 });
 
+schema.statics.list = function list () {
+  var pattern = {
+    email: 1,
+    createdAt: 1,
+    role: 1,
+  };
+
+  return this.find({}, pattern);
+}
+
 schema.methods.generateEmailToken = function generateEmailToken() {
   return new Promise(
     function(resolve, reject) {

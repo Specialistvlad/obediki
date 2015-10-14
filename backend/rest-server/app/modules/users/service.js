@@ -44,6 +44,10 @@ function findById(id) {
   return Model.findOne({_id: id});
 }
 
+function list() {
+  return Model.list();
+}
+
 function confirmEmail(token) {
   return Model.findOne({'email.confirmation.token': token})
     .then(function(user) {
@@ -129,6 +133,7 @@ function createTokenForPasswordReset(data) {
 }
 
 module.exports = {
+  list,
   create,
   createIfNotExists,
   findByEmailAndPassword,

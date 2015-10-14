@@ -16,9 +16,9 @@ module.exports = {
        siteRoutes: [
          '/login',
          '/summary',
-         '/menus',
-         '/menus/:id',
-         '/order'
+         '/menus/:id?',
+         '/users/:id?',
+         '/order',
        ]
      },
      userRoles: require('./user-roles')
