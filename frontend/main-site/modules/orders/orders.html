@@ -2,26 +2,25 @@
   <tr>
     <th>№</th>
     <th>Почтовый адрес</th>
-    <th>Роль</th>
-    <th>Дата регистрации</th>
+    <th>Действует от</th>
+    <th>Создан</th>
+    <th>Изменен</th>
     <th>Управление</th>
   </tr>
 
-  <tr dir-paginate="it in users | itemsPerPage: 10">
+  <tr dir-paginate="it in list | itemsPerPage: 25">
     <td>{{$index + 1}}</td>
-    <td ng-bind="it.email.value"></td>
-    <td>
-      <span class="label label-primary" ng-bind="it.role"></span>
-    </td>
+    <td ng-bind="it.ownerId.email.value"></td>
+    <td>{{it.dateFrom | date: 'mediumDate'}} (Неделя: {{it.dateFrom | date: 'ww'}})</td>
     <td>{{it.createdAt | date: 'medium'}}</td>
-    <td>
-      <!-- <button type="button" class="btn btn-default btn-xs" go-click="users/{{it._id}}">
+    <td>{{it.updatedAt | date: 'medium'}}</td><td>
+      <button type="button" class="btn btn-default btn-xs" go-click="orders/{{it._id}}">
         <span class="glyphicon glyphicon-search" aria-hidden="true" aria-haspopup="true" aria-expanded="false"></span>
         Детально
-      </button> -->
-      <!-- <button type="button" class="btn btn-danger btn-xs">
+      </button>
+      <button type="button" class="btn btn-danger btn-xs">
         <span class="glyphicon glyphicon-remove" aria-hidden="true" aria-haspopup="true" aria-expanded="false"></span>
-      </button> -->
+      </button>
     </td>
   </tr>
 </table>

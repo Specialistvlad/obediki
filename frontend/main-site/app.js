@@ -3,15 +3,17 @@ angular.module('app', ['ngRoute', 'ngResource', 'ngCookies', 'ngFileUpload', 'an
 // configure our routes
 .config(function ($routeProvider, $locationProvider) {
   $routeProvider
-  .when('/summary', { templateUrl: 'templates/summary.html', controller: 'summaryCntrl'})
-  .when('/order', { templateUrl: 'templates/order.html', controller: 'orderCntrl'})
+  .when('/', { templateUrl: 'templates/summary.html', controller: 'summaryCntrl'})
+  .when('/next-week-order', { templateUrl: 'templates/next-week.html', controller: 'nextWeekOrderCntrl'})
   .when('/menus', { templateUrl: 'templates/menus.html', controller: 'menusCntrl'})
   .when('/menus/:menuId', { templateUrl: 'templates/menu.html', controller: 'menuCntrl'})
+  .when('/orders', { templateUrl: 'templates/orders.html', controller: 'ordersCntrl'})
+  .when('/orders/:orderId', { templateUrl: 'templates/order.html', controller: 'orderCntrl'})
   .when('/users', { templateUrl: 'templates/users.html', controller: 'usersCntrl'})
   .when('/users/:userId', { templateUrl: 'templates/user.html', controller: 'userCntrl'})
   .when('/login', { templateUrl: 'templates/login.html', controller: 'loginCntrl'})
   .when('/sign-up', { templateUrl: 'templates/sign-up.html', controller: 'signUpCntrl'})
-  .otherwise({redirectTo: '/summary'});
+  .otherwise({redirectTo: '/'});
 
   // use the HTML5 History API
   $locationProvider.html5Mode(true);

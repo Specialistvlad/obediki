@@ -1,0 +1,17 @@
+<div ng-if="menuExists()" class="alert alert-info" role="alert">
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+  <span class="sr-only">Внимание:</span>
+  Меню от {{order.dateFrom | date: 'mediumDate'}} (Неделя: {{order.dateFrom | date: 'ww'}})
+</div>
+
+<div ng-if="menuExists()" ng-repeat="i in _.range(5) track by $index">
+  <div class="panel panel-default">
+    <div class="panel-heading">{{daysOfWeek[$index]}}</div>
+    <div class="panel-body">
+      <div class="list-group" ng-repeat="it in order[i] track by $index">
+        {{it.name}} <span class="badge">{{it.cost}}</span>
+      </div>
+    </div>
+    <div class="panel-footer">Сумма: <span class="badge badge-success" ng-bind="orderSum(i)"></span></div>
+  </div>
+</div>

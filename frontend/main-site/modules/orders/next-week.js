@@ -1,4 +1,4 @@
-angular.module('app').controller('orderCntrl', ['$scope', '$routeParams', 'menusResource', 'ordersResource',
+angular.module('app').controller('nextWeekOrderCntrl', ['$scope', '$routeParams', 'menusResource', 'ordersResource',
   function($scope, $routeParams, menusResource, ordersResource) {
     $scope.daysOfWeek = ['Понедельник', 'Вторник', 'Среда' , 'Четверг', 'Пятница'];
     $scope._ = _;
@@ -75,6 +75,6 @@ angular.module('app').controller('orderCntrl', ['$scope', '$routeParams', 'menus
     };
 
     $scope.orderSum = function(dayIndex) {
-      return _.sum($scope.order, 'cost');
+      return _.sum($scope.order[dayIndex], 'cost');
     };
 }]);

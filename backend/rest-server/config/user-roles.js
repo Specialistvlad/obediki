@@ -15,7 +15,9 @@ var manager = [
   'update menus',
   'get menus',
   'list menus',
-  'remove menus'
+  'remove menus',
+  'list orders',
+  'find orders',
 ];
 
 var admin = [

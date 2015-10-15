@@ -12,7 +12,8 @@ var schema = mongoose.Schema({
   dateTo: Date,
   ownerId: {
     required: true,
-    type: mongoose.Schema.Types.ObjectId
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'users'
   },
   '0': [MenuItem],
   '1': [MenuItem],
@@ -26,15 +27,20 @@ schema.plugin(require('mongoose-unique-validator'));
 
 schema.statics.list = function list () {
   var pattern = {
-    0: 1,
-    1: 1,
-    2: 1,
-    3: 1,
-    4: 1,
-    createdAt: 1
+    dateFrom: 1,
+    dateTo: 1,
+    ownerId: 1,
+    createdAt: 1,
+    updatedAt: 1,
   };
 
-  return this.find({}, pattern).sort({createdAt: -1});
+  var userPattern = {
+    'email.value': 1
+  };
+
+  return this.find({}, pattern)
+    .populate('ownerId', userPattern)
+    .sort({createdAt: -1});
 }
 
 schema.statics.findByOwnerAndDate = function findByOwnerAndDate (userId, dateFrom, dateTo) {

@@ -19,6 +19,7 @@ module.exports = {
          '/menus/:id?',
          '/users/:id?',
          '/order',
+         '/orders/:id?'
        ]
      },
      userRoles: require('./user-roles')

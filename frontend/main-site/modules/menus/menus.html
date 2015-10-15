@@ -17,6 +17,7 @@
       <tr>
         <th>№</th>
         <th>Проверено</th>
+        <th>Действует от</th>
         <th>Дата импорта</th>
         <th>Управление</th>
       </tr>
@@ -28,6 +29,7 @@
           <span ng-show="it.seen && !it.approved" class="label label-danger">Отклонено</span>
           <span ng-hide="it.seen" class="label label-primary">Новое</span>
         </td>
+        <td>{{it.createdAt | date: 'mediumDate'}} (Неделя: {{it.createdAt | date: 'ww'}})</td>
         <td>{{it.createdAt | date: 'medium'}}</td>
         <td>
           <button type="button" class="btn btn-default btn-xs" go-click="menus/{{it._id}}">
