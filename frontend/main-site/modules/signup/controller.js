@@ -3,8 +3,8 @@ angular.module('app').controller('signupCntrl',
 function($rootScope, $scope, usersResource) {
   $scope.error = null;
   $scope.credentials = {
-    email: 'admin2@example.com',
-    password: 'test2test'
+    email: '',
+    password: ''
   };
 
   $scope.signup = function (credentials) {
