@@ -12,7 +12,7 @@ angular.module('app', ['ngRoute', 'ngResource', 'ngCookies', 'ngFileUpload', 'an
   .when('/users', { templateUrl: 'templates/users.html', controller: 'usersCntrl'})
   .when('/users/:userId', { templateUrl: 'templates/user.html', controller: 'userCntrl'})
   .when('/login', { templateUrl: 'templates/login.html', controller: 'loginCntrl'})
-  .when('/sign-up', { templateUrl: 'templates/sign-up.html', controller: 'signUpCntrl'})
+  .when('/signup', { templateUrl: 'templates/signup.html', controller: 'signupCntrl'})
   .otherwise({redirectTo: '/'});
 
   // use the HTML5 History API

@@ -38,7 +38,7 @@ angular.module('app').factory('AuthService', function ($http, $location, Session
     isAuthenticated: isAuthenticated,
     checkRestrictions: function(event, next, current) {
       var logged = isAuthenticated();
-      var toLoginPage = $location.path().indexOf('/login') === 0;
+      var toLoginPage = ($location.path().indexOf('/login') === 0 || $location.path().indexOf('/signup') === 0);
 
       if (toLoginPage && logged) {
         event.preventDefault();

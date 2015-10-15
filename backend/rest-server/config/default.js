@@ -14,12 +14,14 @@ module.exports = {
      },
      frontend: {
        siteRoutes: [
+         '/signup',
          '/login',
          '/summary',
          '/menus/:id?',
          '/users/:id?',
          '/order',
-         '/orders/:id?'
+         '/orders/:id?',
+         '/next-week-order',
        ]
      },
      userRoles: require('./user-roles')
