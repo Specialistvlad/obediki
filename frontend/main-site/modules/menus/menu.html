@@ -12,6 +12,7 @@
     <tr>
       <th>№</th>
       <th>Название</th>
+      <th>Дополнительно</th>
       <th>Вес</th>
       <th>Стоимость</th>
     </tr>
@@ -19,7 +20,8 @@
     <tr ng-repeat="it in menu[$index]">
       <td>{{$index + 1}}</td>
       <td>{{it.name}}</td>
-      <td>{{it.weight}}</td>
+      <td>{{it.description}}</td>
+      <td>{{it.count + ' ' + it.measureBy}}</td>
       <td>{{it.cost}}</td>
     </tr>
   </table>

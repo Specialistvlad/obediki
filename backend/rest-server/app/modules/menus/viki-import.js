@@ -61,13 +61,32 @@ module.exports = function parseViki(argument, options) {
       }
 
       if ((!skip) && dayMenu) {
+        value = value.replace(/[\»\«\"]/ig, '');
         var tmpObj = {
           name: value
         };
 
+        var reg = /\([А-Яa-яёъ,.\ ]{1,}\)/ig;
+        var tmp = value.match(reg);
+        if (tmp) {
+          try {
+            tmpObj.name = value.replace(reg, '').trim();
+            tmpObj.description = tmp[0].replace('(', '').replace(')', '');
+          } catch (e) {}
+          console.log(tmpObj);
+        }
+
         try {
           tmp = worksheet[columnsName.weight+i].v;
-          tmpObj.weight = tmp;
+          if (tmp.indexOf('/') > -1) {
+            tmp = tmp.split('/')[1];
+          }
+
+          try {
+            tmpObj.count = Number.parseInt(tmp);
+            tmpObj.measureBy = tmp.match(/[А-Яa-яёъ]/ig).join('');
+          } catch (e) {}
+
           tmp = worksheet[columnsName.cost+i].v;
           tmpObj.cost = tmp;
           dayMenu.push(tmpObj);
