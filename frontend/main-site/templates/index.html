@@ -9,7 +9,6 @@
     <meta name="author" content="">
     <base href="/">
     <title>Обедики!</title>
-
     <link rel="stylesheet" href="app.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -22,7 +21,7 @@
   <body ng-controller="globalController">
     <div class="container">
       <header>
-        <ng-include src="'templates/navbar.html'"></ng-include>
+        <ng-include ng-if="isAuthenticated()" src="'templates/navbar.html'"></ng-include>
       </header>
 
       <main ng-view ng-cloak>
@@ -30,6 +29,5 @@
 
     </div> <!-- /container -->
     <script src="app.js"></script>
-
   </body>
 </html>

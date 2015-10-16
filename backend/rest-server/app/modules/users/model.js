@@ -47,7 +47,7 @@ var schema = mongoose.Schema({
   },
   role: {
     type: String,
-    default: 'admin'
+    default: 'anonymous',
   }
 });
 

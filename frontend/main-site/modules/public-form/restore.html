@@ -1,0 +1,19 @@
+<div class="tab-pane" ng-class="isSelectedTab('restore') ? 'active' : ''">
+		<form ng-submit="$parent.restore()" role="form" name="restore" autocomplete="off" novalidate class="form-horizontal">
+		<div class="form-group">
+				<label for="restore-email" class="col-sm-2 control-label">Email</label>
+				<div class="col-sm-10">
+						<input ng-model="data.restore.email" type="email" class="form-control" id="restore-email" placeholder="Email"/>
+						<span id="restoreEmailHelpBlock" class="help-block hide">
+							A block of help text that breaks onto a new line and may extend beyond one line.
+						</span>
+				</div>
+		</div>
+		<div class="row">
+				<div class="col-sm-2"></div>
+				<div class="col-sm-10">
+						<button type="submit" class="btn btn-primary btn-sm">Submit</button>
+				</div>
+		</div>
+		</form>
+</div>

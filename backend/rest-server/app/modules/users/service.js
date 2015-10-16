@@ -60,10 +60,6 @@ function confirmEmail(token) {
       }
     });
 }
-//
-// function getByUsernameAndPassword(username, password) {
-//   return Model.findOne({'credentials.username': username, 'credentials.password': password});
-// }
 
 function findByResetPasswordToken(token) {
   return Model.findOne({'credentials.reset.token': token});

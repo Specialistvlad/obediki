@@ -4,7 +4,7 @@ module.exports = {
      },
      web: {
        port: 3000,
-       listen: 'localhost',
+       listen: '0.0.0.0',
        host: 'localhost',
        publicDir: '../../../build/',
        logGoodResponse: false,
@@ -14,14 +14,13 @@ module.exports = {
      },
      frontend: {
        siteRoutes: [
-         '/signup',
-         '/login',
+         '/public/:tabName?',
          '/summary',
+         '/next-week-order',
          '/menus/:id?',
          '/users/:id?',
          '/order',
          '/orders/:id?',
-         '/next-week-order',
        ]
      },
      userRoles: require('./user-roles')

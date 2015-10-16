@@ -1,0 +1,24 @@
+<div class="tab-pane" ng-show="isSelectedTab('signin')">
+		<form ng-submit="$parent.signin()" role="form" name="signin" autocomplete="off" novalidate class="form-horizontal">
+		<div class="form-group">
+				<label for="signin-email" class="col-sm-2 control-label">Email</label>
+				<div class="col-sm-10">
+						<input ng-model="data.signin.email" type="email" class="form-control" id="signin-email" placeholder="Email" />
+				</div>
+		</div>
+		<div class="form-group">
+				<label for="signin-password" class="col-sm-2 control-label">Password</label>
+				<div class="col-sm-10">
+						<input ng-model="data.signin.password" type="password" class="form-control" id="signin-password" placeholder="Password" />
+				</div>
+		</div>
+		<div class="row">
+				<div class="col-sm-2">
+				</div>
+				<div class="col-sm-10">
+						<button type="submit" class="btn btn-primary btn-sm">Submit</button>
+						<a ng-click="selectTab('restore')" href="">Forgot your password?</a>
+				</div>
+		</div>
+		</form>
+</div>

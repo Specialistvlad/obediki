@@ -3,7 +3,7 @@ angular.module('app', ['ngRoute', 'ngResource', 'ngCookies', 'ngFileUpload', 'an
 // configure our routes
 .config(function ($routeProvider, $locationProvider) {
   $routeProvider
-  .when('/', { templateUrl: 'templates/summary.html', controller: 'summaryCntrl'})
+  //.when('/', { templateUrl: 'templates/summary.html', controller: 'summaryCntrl'})
   .when('/next-week-order', { templateUrl: 'templates/next-week.html', controller: 'nextWeekOrderCntrl'})
   .when('/menus', { templateUrl: 'templates/menus.html', controller: 'menusCntrl'})
   .when('/menus/:menuId', { templateUrl: 'templates/menu.html', controller: 'menuCntrl'})
@@ -11,9 +11,8 @@ angular.module('app', ['ngRoute', 'ngResource', 'ngCookies', 'ngFileUpload', 'an
   .when('/orders/:orderId', { templateUrl: 'templates/order.html', controller: 'orderCntrl'})
   .when('/users', { templateUrl: 'templates/users.html', controller: 'usersCntrl'})
   .when('/users/:userId', { templateUrl: 'templates/user.html', controller: 'userCntrl'})
-  .when('/login', { templateUrl: 'templates/login.html', controller: 'loginCntrl'})
-  .when('/signup', { templateUrl: 'templates/signup.html', controller: 'signupCntrl'})
-  .otherwise({redirectTo: '/'});
+  .when('/public/:tabName?', { templateUrl: 'templates/public-form.html', controller: 'publicFormCntrl'})
+  .otherwise({redirectTo: '/next-week-order'});
 
   // use the HTML5 History API
   $locationProvider.html5Mode(true);

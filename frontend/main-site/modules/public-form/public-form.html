@@ -1,0 +1,33 @@
+<div class="public-form-parent">
+  <div class="public-form-floater"></div>
+  <div class="public-form-child">
+    <div class="col-md-8" style="border-right: 1px dotted #C2C2C2;padding-right: 30px;">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs">
+            <li ng-class="isSelectedTab('signin') ? 'active' : ''"><a href="" ng-click="selectTab('signin')">Login</a></li>
+            <li ng-class="isSelectedTab('signup') ? 'active' : ''"><a href="" ng-click="selectTab('signup')">Registration</a></li>
+            <li ng-class="isSelectedTab('restore') ? 'active' : ''"><a href="" ng-click="selectTab('restore')">Forgot password</a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <ng-include ng-if="isSelectedTab('signin')" src="'templates/signin.html'"></ng-include>
+          <ng-include ng-if="isSelectedTab('signup')" src="'templates/signup.html'"></ng-include>
+          <ng-include ng-if="isSelectedTab('restore')" src="'templates/restore.html'"></ng-include>
+        </div>
+        <div id="public-or" class="hidden-xs">OR</div>
+    </div>
+    <div class="col-md-4">
+        <div class="row text-center sign-with">
+            <div class="col-md-12">
+                <h3>Sign in with</h3>
+            </div>
+            <div class="col-md-12">
+                <div class="btn-group btn-group-justified">
+                    <a href="" class="btn btn-primary">Facebook</a>
+                    <a href="" class="btn btn-danger">Google</a>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>

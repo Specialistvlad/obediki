@@ -8,6 +8,7 @@ angular.module('app').service('Session', function ($cookies) {
   this.destroy = function () {
     this.user = null;
     $cookies.remove('user');
+    $cookies.remove('connect.sid');
   };
 
   this.restore = function () {
@@ -33,19 +34,19 @@ angular.module('app').factory('AuthService', function ($http, $location, Session
     },
     logout: function () {
       Session.destroy();
-      $location.path('/');
+      $location.path('/public');
     },
     isAuthenticated: isAuthenticated,
     checkRestrictions: function(event, next, current) {
       var logged = isAuthenticated();
-      var toLoginPage = ($location.path().indexOf('/login') === 0 || $location.path().indexOf('/signup') === 0);
+      var toPublicPage = $location.path().indexOf('/public') === 0;
 
-      if (toLoginPage && logged) {
+      if (toPublicPage && logged) {
         event.preventDefault();
         $location.path('/');
-      } else if (!toLoginPage && !logged) {
+      } else if (!toPublicPage && !logged) {
           event.preventDefault();
-          $location.path('/login');
+          $location.path('/public');
       }
     }
     // ,
