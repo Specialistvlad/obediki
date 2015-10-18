@@ -1,11 +1,12 @@
 var config = require('./../../../config');
+var securePassport = require('./../../../config/secure/passport');
 var service = require('./service');
 var validation = require('./validation');
 
 var passportConfig = {
-  successRedirect: 'http://localhost:5000',
+  successRedirect: config.web.address,
   successFlash: 'Welcome!',
-  failureRedirect: '/login',
+  failureRedirect: config.web.address+'/public',
   failureFlash: 'Invalid username or password.'
 }
 var passport = require('passport');
@@ -22,17 +23,13 @@ passport.use(new LocalStrategy({
     (email, password, done) => service.findByEmailAndPassword(email, password).exec(done)
   ));
 
-var optionsVK = config.passport.vkontakte;
+var optionsVK = securePassport.vkontakte;
 optionsVK.callbackURL = config.web.address + 'api/auth/vkontakte/callback';
-optionsVK.scope = ['email', 'offline'];
-optionsVK.profileFields = ['city', 'bdate', 'email'];
+optionsVK.scope = ['offline'];
+optionsVK.profileFields = ['city', 'bdate'];
 passport.use(new VKontakteStrategy(optionsVK, (accessToken, refreshToken, profile, done) => {
   service.socialNetwork({accessToken, refreshToken, profile, name: 'vkontakte'})
-  .then(function (res) {
-    done(null, res);
-  }, function (err) {
-    done(err);
-  });
+    .then(res => done(null, res), err => done(err));
 }));
 
 function login(req, res, next) {

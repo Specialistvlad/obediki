@@ -24,6 +24,5 @@ module.exports = {
          '/orders/:id?',
        ]
      },
-     passport: require('./secure/passport'),
      userRoles: require('./user-roles'),
    };

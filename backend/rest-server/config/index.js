@@ -9,5 +9,4 @@ if (newConfig) {
     config = _.merge(config, newConfig, (a, b) => { if (_.isArray(a)) return a.concat(b);});
 }
 
-console.log('NODE_ENV=%s, isDevelopmentMode=%s', config.env, config.develop);
 module.exports = config;

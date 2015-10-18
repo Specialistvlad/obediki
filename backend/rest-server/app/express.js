@@ -73,7 +73,6 @@ module.exports = function() {
   // Configure Application Router
   router(app, roles);
 
-  console.log('Web server listening at http://%s:%s', config.web.listen, config.web.port);
   app.listen(config.web.port, config.web.listen);
   return app;
 };
