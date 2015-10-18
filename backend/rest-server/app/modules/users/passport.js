@@ -30,7 +30,11 @@ function socialCallback (accessToken, refreshToken, profile, done) {
 for (var social in securePassport) {
   var options = securePassport[social];
   options.callbackURL = config.web.address + 'api/auth/'+social+'/callback';
-  var moduleName = 'passport-'+social+(social === 'github' ? '2' : '');
+
+  var moduleName = 'passport-'+social+
+    (social === 'github' ? '2' :
+      (social === 'linkedin' ? '-oauth2' : '')
+    );
   passport.use(new (require(moduleName).Strategy)(options, socialCallback));
 }
 
