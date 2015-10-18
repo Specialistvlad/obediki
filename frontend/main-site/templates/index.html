@@ -18,10 +18,10 @@
     <![endif]-->
   </head>
 
-  <body ng-controller="globalController">
+  <body>
     <div class="container">
       <header>
-        <ng-include ng-if="isAuthenticated()" src="'templates/navbar.html'"></ng-include>
+        <ng-include src="'templates/navigation.html'"></ng-include>
       </header>
 
       <main ng-view ng-cloak>
