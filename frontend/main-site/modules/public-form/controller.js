@@ -1,6 +1,6 @@
 angular.module('app').controller('publicFormCntrl',
-        ['$rootScope', '$scope', '$routeParams', 'AuthService', 'usersResource',
-function($rootScope, $scope, $routeParams, AuthService, usersResource) {
+        ['$window', '$rootScope', '$scope', '$routeParams', 'AuthService', 'usersResource',
+function($window, $rootScope, $scope, $routeParams, AuthService, usersResource) {
   $scope.tab = $routeParams.tabName ? $routeParams.tabName : 'signin';
 
   $scope.isSelectedTab = function (tabName) {
@@ -54,4 +54,8 @@ function($rootScope, $scope, $routeParams, AuthService, usersResource) {
       $scope.error = res.data.message;
     });
   };
+
+  $scope.social = function (networkName) {
+    $window.location.href = 'api/auth/'+networkName;
+  }
 }]);

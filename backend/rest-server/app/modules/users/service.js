@@ -71,13 +71,19 @@ function socialNetwork(options) {
       }
       var tmp = {
         username: options.profile.displayName,
-        email: options.profile.email,
         credentials: {
           password: 'asdasdsfgfg'
         },
         social: {}
       };
-      tmp.social[options.name] = options;
+
+      // if (options.profile.email) {
+      //   tmp.email = options.profile.email;
+      // } else if (options.profile.emails) {
+      //   tmp.email = options.profile.emails[0];
+      // }
+
+      tmp.social[options.profile.provider] = options;
       return createIfNotExists(tmp, true);
     });
 }

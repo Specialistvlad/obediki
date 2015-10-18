@@ -44,8 +44,13 @@ var files = {
     'bower_components/normalize-css/normalize.css',
     'bower_components/bootstrap/dist/css/bootstrap.css',
     'bower_components/bootstrap/dist/css/bootstrap-theme.css',
+    'bower_components/bootstrap-social/bootstrap-social.css',
+    'bower_components/font-awesome/css/font-awesome.css',
     prefix+'/assets/css/*.scss'],
-  fonts: 'bower_components/bootstrap/dist/fonts/*'
+  fonts: [
+    'bower_components/bootstrap/dist/fonts/*',
+    'bower_components/font-awesome/fonts/*',
+  ]
 };
 var spawn = require('child_process').spawn;
 var buildTask = ['html', 'templates', 'js', 'sass', 'img', 'dicts', 'fonts'];

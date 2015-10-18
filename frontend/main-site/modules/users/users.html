@@ -4,6 +4,7 @@
     <th>Имя пользователя</th>
     <th>Почтовый адрес</th>
     <th>Роль</th>
+    <th>Социальный сети</th>
     <th>Дата регистрации</th>
     <th>Управление</th>
   </tr>
@@ -14,6 +15,23 @@
     <td ng-bind="it.email.value"></td>
     <td>
       <span class="label label-primary" ng-bind="it.role"></span>
+    </td>
+    <td>
+      <a ng-show="social(it, 'vkontakte')" ng-href="{{socialLink(it, 'vkontakte')}}" target="_blank" class="btn btn-xs btn-social-icon btn-vk">
+        <i class="fa fa-vk"></i>
+      </a>
+      <a ng-show="social(it, 'facebook')" ng-href="{{socialLink(it, 'facebook')}}" target="_blank" class="btn btn-xs btn-social-icon btn-facebook">
+        <i class="fa fa-facebook"></i>
+      </a>
+      <a ng-show="social(it, 'google')" ng-href="{{socialLink(it, 'google')}}" target="_blank" class="btn btn-xs btn-social-icon btn-google">
+        <i class="fa fa-google"></i>
+      </a>
+      <a ng-show="social(it, 'github')" ng-href="{{socialLink(it, 'github')}}" target="_blank" class="btn btn-xs btn-social-icon btn-github">
+        <i class="fa fa-github"></i>
+      </a>
+      <a ng-show="social(it, 'linkedin')" ng-href="{{socialLink(it, 'linkedin')}}" target="_blank" class="btn btn-xs btn-social-icon btn-linkedin">
+        <i class="fa fa-linkedin"></i>
+      </a>
     </td>
     <td>{{it.createdAt | date: 'medium'}}</td>
     <td>

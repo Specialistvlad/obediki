@@ -62,6 +62,7 @@ schema.statics.list = function list () {
     username: 1,
     createdAt: 1,
     role: 1,
+    social: 1,
   };
 
   return this.find({}, pattern);

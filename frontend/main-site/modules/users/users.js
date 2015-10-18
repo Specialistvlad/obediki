@@ -7,4 +7,18 @@ angular.module('app').controller('usersCntrl', [
     });
   }
   update();
+
+  $scope.social = function (user, networkName) {
+    return (user.social && !!user.social[networkName]);
+  }
+
+  $scope.socialLink = function (user, networkName) {
+    if (!$scope.social(user, networkName)) {
+      return '';
+    }
+
+    return 'http://' +
+      (networkName === 'vkontakte' ? 'vk' : networkName) + '.com/' +
+      user.social[networkName].profile.id;
+  }
 }]);
