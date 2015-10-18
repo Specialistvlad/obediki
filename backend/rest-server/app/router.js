@@ -8,6 +8,7 @@ var express = require('express');
 // PUT      U pdate
 // DELETE   D elete
 
+var passport = require('./modules/users/passport');
 var moduleUsers = require('./modules/users/routes');
 var moduleMenus = require('./modules/menus/routes');
 var moduleOrders = require('./modules/orders/routes');
@@ -15,6 +16,7 @@ var moduleOrders = require('./modules/orders/routes');
 module.exports = function(app, roles) {
 
   // Main API
+  passport.register(app, roles);
   moduleUsers.register(app, roles);
   moduleMenus.register(app, roles);
   moduleOrders.register(app, roles);

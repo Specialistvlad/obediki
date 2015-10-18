@@ -1,3 +1,5 @@
+<div ng-show="error" class="alert alert-danger" role="alert">{{error}}</div>
+<div ng-show="message" class="alert alert-success" role="alert">{{message}}</div>
 <div class="public-form-parent">
   <div class="public-form-floater"></div>
   <div class="public-form-child">
@@ -23,8 +25,8 @@
             </div>
             <div class="col-md-12">
                 <div class="btn-group btn-group-justified">
-                    <a href="" class="btn btn-primary">Facebook</a>
-                    <a href="" class="btn btn-danger">Google</a>
+                    <a onclick="javascript:self.location.href='/api/auth/vkontakte'; return false;" class="btn btn-primary">vkontakte</a>
+                    <a href="/api/auth/google" class="btn btn-danger">Google</a>
                 </div>
             </div>
         </div>

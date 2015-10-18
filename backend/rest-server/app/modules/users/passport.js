@@ -1,13 +1,39 @@
+var config = require('./../../../config');
 var service = require('./service');
 var validation = require('./validation');
 
+var passportConfig = {
+  successRedirect: 'http://localhost:5000',
+  successFlash: 'Welcome!',
+  failureRedirect: '/login',
+  failureFlash: 'Invalid username or password.'
+}
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var VKontakteStrategy = require('passport-vkontakte').Strategy;
 
 passport.serializeUser((user, done) => done(null, user._id));
 passport.deserializeUser((id, done) => service.findById(id).exec(done));
-passport.use(new LocalStrategy({ usernameField: 'email', passwordField: 'password' },
-  (email, password, done) => service.findByEmailAndPassword(email, password).exec(done)));
+
+passport.use(new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password'
+  },
+    (email, password, done) => service.findByEmailAndPassword(email, password).exec(done)
+  ));
+
+var optionsVK = config.passport.vkontakte;
+optionsVK.callbackURL = config.web.address + 'api/auth/vkontakte/callback';
+optionsVK.scope = ['email', 'offline'];
+optionsVK.profileFields = ['city', 'bdate', 'email'];
+passport.use(new VKontakteStrategy(optionsVK, (accessToken, refreshToken, profile, done) => {
+  service.socialNetwork({accessToken, refreshToken, profile, name: 'vkontakte'})
+  .then(function (res) {
+    done(null, res);
+  }, function (err) {
+    done(err);
+  });
+}));
 
 function login(req, res, next) {
   validation.login(req.body).then(function () {
@@ -24,6 +50,12 @@ function login(req, res, next) {
   }, err => res.badRequest(err))
 };
 
+function register (app, roles) {
+  app.get('/api/auth/vkontakte', passport.authenticate('vkontakte'));
+  app.get('/api/auth/vkontakte/callback', passport.authenticate('vkontakte', passportConfig));
+}
+
 module.exports = {
+  register,
   login
 }

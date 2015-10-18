@@ -1,11 +1,12 @@
 module.exports = {
      db: {
-       url: 'mongodb://localhost:27017/order-dinner'
+       url: 'mongodb://localhost:27017/obediki-develop'
      },
      web: {
-       port: 3000,
+       port: 5000,
        listen: '0.0.0.0',
        host: 'localhost',
+       address: 'http://localhost:5000/',
        publicDir: '../../../build/',
        logGoodResponse: false,
        logErrorResponse: true,
@@ -23,5 +24,6 @@ module.exports = {
          '/orders/:id?',
        ]
      },
-     userRoles: require('./user-roles')
+     passport: require('./secure/passport'),
+     userRoles: require('./user-roles'),
    };

@@ -7,6 +7,7 @@ var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var concat = require('gulp-concat');
 var gulpFile = require('gulp-file');
+var babel = require('gulp-babel');
 var del = require('del');
 var path = require('path');
 var fs = require("fs");
@@ -94,6 +95,7 @@ gulp.task('js', function() {
   var tmp = gulp.src(files.js)
     // .pipe(jshint('.jshintrc'))
     // .pipe(jshint.reporter('default'))
+    //.pipe(babel())
     .pipe(concat('app.js'));
 
   if (!config.develop) {

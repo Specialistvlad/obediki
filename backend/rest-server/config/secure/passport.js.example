@@ -1,0 +1,15 @@
+module.exports = {
+	vkontakte: {
+		clientID:     'VKONTAKTE_APP_ID', // VK.com docs call it 'API ID'
+		clientSecret: 'VKONTAKTE_APP_SECRET'
+	},
+	github: {
+
+	},
+	bitbucket: {
+
+	},
+	google: {
+
+	}
+};

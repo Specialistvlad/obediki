@@ -20,7 +20,7 @@ var schema = mongoose.Schema({
     },
     password: {
       type: String,
-      required: true
+      required: false
     },
     reset: {
       token: String,
@@ -31,10 +31,9 @@ var schema = mongoose.Schema({
   email: {
     value: {
       type: String,
-      required: true,
-      index: {unique: true},
-      unique: true,
-      match: /\S+@\S+\.\S+/,
+      required: false,
+      // index: {unique: true},
+      // unique: true,
       lowercase: true,
       trim: true
     },
@@ -47,8 +46,9 @@ var schema = mongoose.Schema({
   },
   role: {
     type: String,
-    default: 'anonymous',
-  }
+    default: 'user',
+  },
+  social: mongoose.Schema.Types.Mixed,
 });
 
 schema.statics.list = function list () {
@@ -61,11 +61,17 @@ schema.statics.list = function list () {
   return this.find({}, pattern);
 }
 
+schema.statics.findByPathAndValue = function (path, value) {
+  var tmp = {};
+  tmp[path] = value;
+  return this.findOne(tmp);
+};
+
 schema.methods.generateEmailToken = function generateEmailToken() {
   return new Promise(
     function(resolve, reject) {
       if (!this.email.value) {
-        reject('email.value can\'t be undefined');
+        resolve(this);
       }
 
       if (!this.email.confirmation) {

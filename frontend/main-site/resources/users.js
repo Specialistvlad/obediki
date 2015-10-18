@@ -7,3 +7,8 @@ angular.module('app').factory('usersResource', ['$resource', function($resource)
     });
   }
 ]);
+
+angular.module('app').factory('sessionsResource', ['$resource', function($resource) {
+    return $resource('/api/sessions');
+  }
+]);

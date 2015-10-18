@@ -1,36 +1,49 @@
 var Model = require('./model');
 var mailingSystem = require('./../../utils/mailingSystem');
 var validation = require('./validation');
+var Promise = require('bluebird');
 
-function create(data) {
-  var model;
+function create(data, disableValidation) {
+  var template = {
+    email: {
+      value: data.email
+    },
+    credentials: {
+      password: data.password
+    }
+  };
+  if (data.role) {
+    template.role = data.role;
+  }
+  template.social = data.social;
+
+  var model = new Model(template);
+  return model.generateEmailToken().then(model.save());
+}
+function createFromEmailAndPassword(data) {
   return validation.create(data)
-    .then(function (data) {
-      var template = {
-        email: {
-          value: data.email
-        },
-        credentials: {
-          password: data.password
-        }
-      };
-      if (data.role) {
-        template.role = data.role;
-      }
-      model = new Model(template);
-      return model.generateEmailToken();
+    .then(function (res) {
+      return findByEmail(data.email);
     })
-    .then(function() {
-      return model.save();
+    .then(function (res) {
+      if (res) {
+        return Promise.reject('User already exists!');
+      }
+
+      return create(data);
     });
 }
 
-function createIfNotExists(data) {
-  return findByEmail(data.email).then(function (res) {
-    if (!res) {
-      return create(data);
-    }
-  });
+function createIfNotExists(data, disableValidation) {
+  if (data.email) {
+    return findByEmail(data.email, disableValidation).then(function (res) {
+      if (!res) {
+        return create(data);
+      }
+    });
+  } else {
+    return create(data);
+  }
 }
 
 function findByEmailAndPassword(email, password) {
@@ -46,6 +59,25 @@ function findById(id) {
 
 function list() {
   return Model.list();
+}
+
+function socialNetwork(options) {
+  return Model.findByPathAndValue('social.'+options.name+'.profile.id', options.profile.id)
+    .then((user) => {
+      if (user) {
+        user.social[options.name] = options;
+        return user.save();
+      }
+      var tmp = {
+        email: options.profile.email,
+        credentials: {
+          password: 'asdasdsfgfg'
+        },
+        social: {}
+      };
+      tmp.social[options.name] = options;
+      return createIfNotExists(tmp, true);
+    });
 }
 
 function confirmEmail(token) {
@@ -132,6 +164,7 @@ module.exports = {
   list,
   create,
   createIfNotExists,
+  createFromEmailAndPassword,
   findByEmailAndPassword,
   findById,
   findByEmail,
@@ -139,4 +172,5 @@ module.exports = {
   findByResetPasswordToken,
   setPassword,
   createTokenForPasswordReset,
+  socialNetwork,
 };

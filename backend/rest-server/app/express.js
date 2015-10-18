@@ -9,6 +9,7 @@ var session = require('express-session');
 var passport = require('passport');
 var cookieParser = require('cookie-parser');
 var compression = require('compression');
+var flash = require('express-flash');
 var redisStore = require('connect-redis')(session);
 var namedCodes = require('express-named-codes');
 var standartResponse = require('./utils/standart-response');
@@ -20,11 +21,39 @@ var router = require('./router');
 module.exports = function() {
   var app = express();
 
+  // Configure Application Authentication
+  app.use(cookieParser(config.web.cookieKey));
+  app.use(session({
+    secret: config.web.sessionKey,
+    resave: false,
+    saveUninitialized: false,
+    store: new redisStore({})
+  }));
+  app.use(flash());
+  app.use(namedCodes.middleware([], standartResponse));
+
+  // Passport
+  app.use(passport.initialize());
+  app.use(passport.session()); // Find and save user to req.user
+  app.use(function (req, res, next) {
+    // Frontend will read user or null from cookie
+    res.cookie('user', JSON.stringify(req.user));
+    next();
+  });
+
   // Static content
   app.use(express.static(path.join(__dirname, config.web.publicDir)));
-  if (config.develop && config.web.apiDocsDir) {
-    app.use('/apidoc', express.static(path.join(__dirname, config.web.apiDocsDir)));
+  // if (config.develop && config.web.apiDocsDir) {
+  //   app.use('/apidoc', express.static(path.join(__dirname, config.web.apiDocsDir)));
+  // }
+
+  if (!config.develop) {
+    app.use(morgan('combined'));
+    app.use(compression()); // Node.js compression middleware.
+  } else {
+    app.use(morgan('dev'));
   }
+
   // Parse application/json 5 MB Limit
   app.use(bodyParser.raw({limit: 5000}));
   // Parse application/json
@@ -38,28 +67,6 @@ module.exports = function() {
       //TODO Need "file too large" exception handler
     }
   });
-
-  // Configure Application Authentication
-  app.use(cookieParser(config.web.cookieKey));
-  app.use(session({
-    secret: config.web.sessionKey,
-    resave: false,
-    saveUninitialized: false,
-    store: new redisStore({})
-  }));
-
-  app.use(namedCodes.middleware([], standartResponse));
-
-  // Passport
-  app.use(passport.initialize());
-  app.use(passport.session());
-
-  if (!config.develop) {
-    app.use(morgan('combined'));
-    app.use(compression()); // Node.js compression middleware.
-  } else {
-    app.use(morgan('dev'));
-  }
 
   // Configure Authorization
   var roles = authorization(app);

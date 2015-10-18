@@ -16,6 +16,15 @@ function confirmEmail(req, res, next) {
     });
 }
 
+function logout(req, res) {
+  if (req.user) {
+    req.logout();
+    res.ok();
+  } else {
+    res.badRequest('You don\'t have a session!');
+  }
+}
+
 function createTokenForPasswordReset(req, res) {
   validation.emailForPasswordReset(req.body)
     .then(function (data) {
@@ -65,8 +74,9 @@ function changePassword(req, res, next) {
 }
 
 module.exports = {
-  create: def(service.create),
+  create: def(service.createFromEmailAndPassword),
   login: passport.login,
+  logout,
   list: def(service.list),
   createTokenForPasswordReset: createTokenForPasswordReset,
   checkToken: checkToken,

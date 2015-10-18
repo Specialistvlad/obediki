@@ -1,40 +1,59 @@
-angular.module('app').service('Session', function ($cookies) {
+angular.module('app').service('Session', function (sessionsResource, $cookies) {
   this.create = function (user) {
     this.user = user;
-    $cookies.putObject('user', user);
     return user;
   };
 
   this.destroy = function () {
     this.user = null;
-    $cookies.remove('user');
-    $cookies.remove('connect.sid');
+    console.log($cookies.getAll());
+    $cookies.put('user', '');
+    $cookies.put('connect.sid', '');
+    console.log($cookies.getAll());
   };
 
   this.restore = function () {
-    var user = $cookies.getObject('user');
-    if (user) {
-      return this.create(user);
+    try {
+      var user = JSON.parse($cookies.get('user'));
+      if (user) {
+        this.create(user);
+      }
+    } catch (e) {
+      this.user = null;
+    } finally {
+      console.log(this.user ? 'User found!' : 'Can\'t find user');
     }
   };
 })
 
-angular.module('app').factory('AuthService', function ($http, $location, Session) {
+angular.module('app').factory('AuthService', function (sessionsResource, $location, Session) {
   function isAuthenticated() {
     return !!Session.user;
   }
   return {
     login: function (credentials) {
-      return $http
-        .post('/api/users/session', credentials)
-        .then(function (res) {
-          Session.create(res.data);
+      return sessionsResource.save(credentials).$promise
+        .then(function (user) {
+          if (!user) {
+            return $q.reject('Unknown error, user not found!');
+          }
+
+          Session.create(user);
           $location.path('/');
+          return Session.user;
         });
     },
     logout: function () {
-      Session.destroy();
-      $location.path('/public');
+      return sessionsResource.delete().$promise
+        .then(function (user) {
+          if (!user) {
+            return $q.reject('Unknown error, can\'t! logout');
+          }
+
+          Session.destroy();
+          $location.path('/');
+          return Session.user;
+        });
     },
     isAuthenticated: isAuthenticated,
     checkRestrictions: function(event, next, current) {

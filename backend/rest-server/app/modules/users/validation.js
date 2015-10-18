@@ -2,6 +2,7 @@ var ValidatorHelper = require('./../../utils/validation');
 
 function create(data) {
   var v = new ValidatorHelper(data);
+  v.notEmpty('name');
   v.isEmail('email');
   v.isPassword('password');
   return v.promisify();

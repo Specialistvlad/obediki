@@ -16,6 +16,7 @@ describe('with right token', function () {
       })
       .then(function (res) {
         var user = res.body;
+        console.log('confirmation', user);
         confirmObject = user.email.confirmation;
         return new promise(function (resolve) {
           resolve(user);

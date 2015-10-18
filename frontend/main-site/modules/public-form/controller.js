@@ -14,21 +14,23 @@ function($rootScope, $scope, $routeParams, AuthService, usersResource) {
   $scope.error = null;
   $scope.data = {
     signin: {
-      email: 'admin@example.com',
-      password: 'testtesttest'
+      //email: 'admin@example.com',
+      //password: 'testtesttest'
     },
     signup: {
-      email: 'newuser@example.com',
-      password: 'testtesttest'
+      // name: 'My username',
+      // email: 'newuser@example.com',
+      // password: 'testtesttest'
+      name: '',
+      email: '',
+      password: ''
     },
     restore: {}
   };
 
   $scope.signin = function () {
-    AuthService.login($scope.data.signin).then(function (user) {
-      $scope.error = null;
-      $scope.setCurrentUser(user);
-    }, function (res) {
+    $scope.error = null;
+    AuthService.login($scope.data.signin).catch(function (res) {
       $scope.error = res.data.message;
     });
   };
@@ -36,13 +38,16 @@ function($rootScope, $scope, $routeParams, AuthService, usersResource) {
   $scope.signup = function () {
     usersResource.save($scope.data.signup, function (user) {
       $scope.error = null;
+      $scope.message = 'User "'+$scope.data.signup.email+'" has been created!'
+      $scope.data.signin.email = '';
+      $scope.data.signin.password = '';
+      $scope.selectTab('signin');
     }, function (res) {
       $scope.error = res.data.message;
     });
   };
 
   $scope.restore = function () {
-    console.log('asd');
     usersResource.createToken($scope.data.restore, function (user) {
       $scope.error = null;
     }, function (res) {

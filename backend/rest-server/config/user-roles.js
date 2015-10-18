@@ -6,6 +6,7 @@ var anonymous = [
   ];
 
 var user = [
+  'check session',
   'get next week menu',
   'have next week order',
 ];

@@ -66,7 +66,7 @@ describe('without any credentials', function () {
 
 function doRequest(fixture, expectCode, responseFuncCheck) {
   return h.request(h.url)
-    .post('api/users/session')
+    .post('api/sessions')
     .form(fixture)
     .expect(expectCode)
     .expect('Content-Type', 'application/json; charset=utf-8')

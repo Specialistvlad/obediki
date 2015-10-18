@@ -4,6 +4,6 @@ angular.module('app').controller('globalController', function ($rootScope, $scop
   $scope.logout = AuthService.logout;
   $scope.setCurrentUser = function (user) {
     $scope.currentUser = user;
-    console.log(user);
+    // console.log(user);
   };
 });
