@@ -19,6 +19,7 @@ angular.module('app').controller('usersCntrl', [
 
     return 'http://' +
       (networkName === 'vkontakte' ? 'vk' : networkName) + '.com/' +
+      (networkName === 'vkontakte' ? 'id' : '') +
       user.social[networkName].profile.id;
   }
 }]);

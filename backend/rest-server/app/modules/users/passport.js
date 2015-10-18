@@ -2,6 +2,8 @@ var config = require('./../../../config');
 var securePassport = require('./../../../config/secure/passport');
 var service = require('./service');
 var validation = require('./validation');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 
 var passportConfig = {
   successRedirect: config.web.address,
@@ -9,42 +11,28 @@ var passportConfig = {
   failureRedirect: config.web.address+'/public',
   failureFlash: 'Invalid username or password.'
 }
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-var VKontakteStrategy = require('passport-vkontakte').Strategy;
-var FacebookStrategy = require('passport-facebook').Strategy;
-var GoogleStrategy = require('passport-google').Strategy;
-var GitHubStrategy = require('passport-github').Strategy;
-var LinkedinStrategy = require('passport-linkedin').Strategy;
 
 passport.serializeUser((user, done) => done(null, user._id));
 passport.deserializeUser((id, done) => service.findById(id).exec(done));
 
 function register (app, roles) {
-  app.get('/api/auth/vkontakte', passport.authenticate('vkontakte'));
-  app.get('/api/auth/vkontakte/callback', passport.authenticate('vkontakte', passportConfig));
-  app.get('/api/auth/facebook', passport.authenticate('facebook'));
-  app.get('/api/auth/facebook/callback', passport.authenticate('facebook', passportConfig));
-  app.get('/api/auth/google', passport.authenticate('google'));
-  app.get('/api/auth/google/callback', passport.authenticate('google', passportConfig));
-  app.get('/api/auth/github', passport.authenticate('github'));
-  app.get('/api/auth/github/callback', passport.authenticate('github', passportConfig));
-  app.get('/api/auth/linkedin', passport.authenticate('linkedin'));
-  app.get('/api/auth/linkedin/callback', passport.authenticate('linkedin', passportConfig));
+  for (var social in securePassport) {
+    app.get('/api/auth/'+social, passport.authenticate(social));
+    app.get('/api/auth/'+social+'/callback', passport.authenticate(social, passportConfig));
+  }
 }
 
-var socialCallback = function (accessToken, refreshToken, profile, done) {
+function socialCallback (accessToken, refreshToken, profile, done) {
   service.socialNetwork({accessToken, refreshToken, profile})
     .then(res => done(null, res), err => done(err));
 };
 
-var optionsVK = securePassport.vkontakte;
-optionsVK.callbackURL = config.web.address + 'api/auth/vkontakte/callback';
-passport.use(new VKontakteStrategy(optionsVK, socialCallback));
-
-var optionsFB = securePassport.facebook;
-optionsFB.callbackURL = config.web.address + 'api/auth/facebook/callback';
-passport.use(new FacebookStrategy(optionsFB, socialCallback));
+for (var social in securePassport) {
+  var options = securePassport[social];
+  options.callbackURL = config.web.address + 'api/auth/'+social+'/callback';
+  var moduleName = 'passport-'+social+(social === 'github' ? '2' : '');
+  passport.use(new (require(moduleName).Strategy)(options, socialCallback));
+}
 
 
 passport.use(new LocalStrategy({
