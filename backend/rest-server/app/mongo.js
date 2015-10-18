@@ -4,6 +4,7 @@ var user = require('./modules/users/service');
 
 function createAdmin () {
   user.createIfNotExists({
+    username: 'Main administrator',
     email: 'admin@example.com',
     password: 'testtesttest',
     role: 'admin'

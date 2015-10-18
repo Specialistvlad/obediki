@@ -28,7 +28,7 @@ optionsVK.callbackURL = config.web.address + 'api/auth/vkontakte/callback';
 optionsVK.scope = ['offline'];
 optionsVK.profileFields = ['city', 'bdate'];
 passport.use(new VKontakteStrategy(optionsVK, (accessToken, refreshToken, profile, done) => {
-  service.socialNetwork({accessToken, refreshToken, profile, name: 'vkontakte'})
+  service.socialNetwork({accessToken, refreshToken, profile})
     .then(res => done(null, res), err => done(err));
 }));
 

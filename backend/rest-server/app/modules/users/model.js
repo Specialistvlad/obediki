@@ -11,6 +11,11 @@ var expireSeconds = 1000;
 var expireResetPasswordSeconds = 60 * 60 * 24;
 
 var schema = mongoose.Schema({
+  username: {
+    type: String,
+    required: false,
+    trim: true
+  },
   credentials: {
     username: {
       type: String,
@@ -54,6 +59,7 @@ var schema = mongoose.Schema({
 schema.statics.list = function list () {
   var pattern = {
     email: 1,
+    username: 1,
     createdAt: 1,
     role: 1,
   };

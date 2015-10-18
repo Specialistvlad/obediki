@@ -5,6 +5,7 @@ var Promise = require('bluebird');
 
 function create(data, disableValidation) {
   var template = {
+    username: data.username,
     email: {
       value: data.email
     },
@@ -62,13 +63,14 @@ function list() {
 }
 
 function socialNetwork(options) {
-  return Model.findByPathAndValue('social.'+options.name+'.profile.id', options.profile.id)
+  return Model.findByPathAndValue('social.'+options.profile.provider+'.profile.id', options.profile.id)
     .then((user) => {
       if (user) {
-        user.social[options.name] = options;
+        user.social[options.profile.provider] = options;
         return user.save();
       }
       var tmp = {
+        username: options.profile.displayName,
         email: options.profile.email,
         credentials: {
           password: 'asdasdsfgfg'

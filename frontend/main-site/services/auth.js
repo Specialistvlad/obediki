@@ -6,10 +6,6 @@ angular.module('app').service('Session', function (sessionsResource, $cookies) {
 
   this.destroy = function () {
     this.user = null;
-    console.log($cookies.getAll());
-    $cookies.put('user', '');
-    $cookies.put('connect.sid', '');
-    console.log($cookies.getAll());
   };
 
   this.restore = function () {
