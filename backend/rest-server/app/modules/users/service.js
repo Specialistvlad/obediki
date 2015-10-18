@@ -65,6 +65,7 @@ function list() {
 function socialNetwork(options) {
   return Model.findByPathAndValue('social.'+options.profile.provider+'.profile.id', options.profile.id)
     .then((user) => {
+      delete options.profile['_raw'];
       if (user) {
         user.social[options.profile.provider] = options;
         return user.save();
@@ -76,7 +77,6 @@ function socialNetwork(options) {
         },
         social: {}
       };
-
       // if (options.profile.email) {
       //   tmp.email = options.profile.email;
       // } else if (options.profile.emails) {

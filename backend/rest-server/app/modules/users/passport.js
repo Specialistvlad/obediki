@@ -34,7 +34,6 @@ for (var social in securePassport) {
   passport.use(new (require(moduleName).Strategy)(options, socialCallback));
 }
 
-
 passport.use(new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password'
