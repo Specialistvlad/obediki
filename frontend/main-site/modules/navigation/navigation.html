@@ -13,11 +13,11 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>{{currentUser.email}}</li>
-        <li><a href="/users">Пользователи</a></li>
-        <li><a href="/menus">Апрув меню</a></li>
-        <li><a href="/orders">Заказы</a></li>
-        <li><a href="/next-week-order">Сделать заказ</a></li>
-        <li><a href="/profile" >{{user.username}}</a></li>
+        <li><a ng-show="auth.can('list users')" href="/users">Пользователи</a></li>
+        <li><a ng-show="auth.can('list menus')" href="/menus">Апрув меню</a></li>
+        <li><a ng-show="auth.can('list orders')" href="/orders">Заказы</a></li>
+        <li><a ng-show="auth.can('order next week')" href="/next-week-order">Сделать заказ</a></li>
+        <li><a href="/profile">Profile {{user.username}}</a></li>
         <li><a href="" ng-click="auth.logout()">Выйти</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">

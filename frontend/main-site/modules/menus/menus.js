@@ -9,11 +9,22 @@ angular.module('app').controller('menusCntrl', [
   }
 
   $scope.removeItem = function(id) {
-    $scope.message = null;
-    menusResource.remove({menuId: id}, function(data) {
-      update();
-    }, function(err) {
-      $scope.message = 'Что-то пошло не так :('
+    swal({
+      title: "Вы уверены?",
+      text: "Восстановить это меню уже не получиться",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonClass: "btn-danger",
+      confirmButtonText: "Да, удали его!",
+      closeOnConfirm: false
+    }, function () {
+      $scope.message = null;
+      menusResource.remove({menuId: id}, function(data) {
+        swal("Удаление", "Успешно!", "success");
+        update();
+      }, function(err) {
+        swal("Ошибка", 'Что-то пошло не так :(', "error");
+      });
     });
   }
 
@@ -28,13 +39,12 @@ angular.module('app').controller('menusCntrl', [
     });
 
     file.upload.then(function (response) {
-      $scope.message = 'Файл успешно загружен';
+      swal("Загрузка файла", "Успешно!", "success");
       update();
     }, function (err) {
-      $scope.message = err.data.message;
+      swal("Ошибка", 'Что-то пошло не так'+(err.data.message?(': ')+err.data.message:''), "error");
     }, function (evt) {
         file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
     });
   }
-  update();
 }]);

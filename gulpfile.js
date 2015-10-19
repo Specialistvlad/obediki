@@ -32,6 +32,7 @@ var files = {
     'bower_components/ng-file-upload/ng-file-upload.js',
     'bower_components/angularUtils-pagination/dirPagination.js',
     'bower_components/bootstrap/dist/js/bootstrap.js',
+    'bower_components/bootstrap-sweetalert/lib/sweet-alert.js',
     'bower_components/lodash/lodash.js',
     prefix+'/*.js',
     prefix+'/resources/*.js',
@@ -46,6 +47,7 @@ var files = {
     'bower_components/bootstrap/dist/css/bootstrap-theme.css',
     'bower_components/bootstrap-social/bootstrap-social.css',
     'bower_components/font-awesome/css/font-awesome.css',
+    'bower_components/bootstrap-sweetalert/lib/sweet-alert.css',
     prefix+'/assets/css/*.scss'],
   fonts: [
     'bower_components/bootstrap/dist/fonts/*',
@@ -77,7 +79,7 @@ function startExpress() {
   var app = express();
   app.use(require('connect-livereload')());
   app.use(express.static(EXPRESS_ROOT));
-  app.listen(4000);
+  app.listen(41234);
 }
 var lr;
 function startLivereload() {

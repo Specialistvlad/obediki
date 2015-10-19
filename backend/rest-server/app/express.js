@@ -21,6 +21,13 @@ var router = require('./router');
 module.exports = function() {
   var app = express();
 
+  if (!config.develop) {
+    app.use(morgan('combined'));
+    app.use(compression()); // Node.js compression middleware.
+  } else {
+    app.use(morgan('dev'));
+  }
+
   // Configure Application Authentication
   app.use(cookieParser(config.web.cookieKey));
   app.use(session({
@@ -46,13 +53,6 @@ module.exports = function() {
   // if (config.develop && config.web.apiDocsDir) {
   //   app.use('/apidoc', express.static(path.join(__dirname, config.web.apiDocsDir)));
   // }
-
-  if (!config.develop) {
-    app.use(morgan('combined'));
-    app.use(compression()); // Node.js compression middleware.
-  } else {
-    app.use(morgan('dev'));
-  }
 
   // Parse application/json 5 MB Limit
   app.use(bodyParser.raw({limit: 5000}));

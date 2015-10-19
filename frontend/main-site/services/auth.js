@@ -23,10 +23,37 @@ angular.module('app').service('Session', function (sessionsResource, $cookies) {
 })
 
 angular.module('app').factory('AuthService', function (sessionsResource, $location, Session) {
+  var rolesList = {};
+  var anonymous = [
+    ];
+
+  var user = [
+      'order next week',
+    ];
+
+  var manager = [
+      'list menus',
+      'list orders',
+    ];
+
+  var admin = [
+      'list users',
+    ];
+
+  user = user.concat(anonymous);
+  manager = manager.concat(user);
+  admin = admin.concat(manager);
+
+  rolesList.user = user;
+  rolesList.manager = manager;
+  rolesList.admin = admin;
+
   function isAuthenticated() {
     return !!Session.user;
   }
+
   return {
+    rolesList: rolesList,
     login: function (credentials) {
       return sessionsResource.save(credentials).$promise
         .then(function (user) {
@@ -63,14 +90,17 @@ angular.module('app').factory('AuthService', function (sessionsResource, $locati
           event.preventDefault();
           $location.path('/public');
       }
+    },
+    can: function (what) {
+      if (!this.isAuthenticated()) {
+        return false;
+      }
+
+      if (!this.rolesList[Session.user.role]) {
+        return false;
+      }
+
+      return (this.rolesList[Session.user.role].indexOf(what) !== -1);
     }
-    // ,
-    // isAuthorized: function (authorizedRoles) {
-    //   if (!angular.isArray(authorizedRoles)) {
-    //     authorizedRoles = [authorizedRoles];
-    //   }
-    //   return (this.isAuthenticated() &&
-    //     authorizedRoles.indexOf(Session.userRole) !== -1);
-    // }
   };
 });
