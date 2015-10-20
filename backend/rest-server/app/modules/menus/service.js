@@ -24,8 +24,9 @@ function find(id) {
   return Model.findById(id);
 }
 
-function findCurrent() {
-  return Model.findCurrent();
+function getNextWeek() {
+  var date = dateUtils.startAndEndOfWeek(dateUtils.getNextWeekDate());
+  return Model.findByDateRange(date[0], date[1]);
 }
 
 function remove(id) {
@@ -45,7 +46,6 @@ module.exports = {
   list,
   find,
   remove,
-  findCurrent,
   importMenu,
-  findNextWeek: findCurrent,
+  getNextWeek,
 };

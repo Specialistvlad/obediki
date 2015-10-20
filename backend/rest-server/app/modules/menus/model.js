@@ -53,5 +53,17 @@ schema.statics.createMenu = function createMenu (menu) {
   return (new Model(menu)).save();
 }
 
+schema.statics.findByDateRange = function findByDateRange (dateFrom, dateTo) {
+  var query = {
+    dateFrom: {
+      $gte: dateFrom,
+    },
+    dateTo: {
+      $lte: dateTo
+    }
+  };
+  return Model.findOne(query);
+}
+
 var Model = mongoose.model('menu', schema);
 module.exports = Model;

@@ -25,7 +25,7 @@ function updateNextWeek(data, user) {
         order['4'] = data['4'];
         return order.save();
       } else {
-        var date = dateUtils.startAndEndOfWeek(getNextWeekDate());
+        var date = dateUtils.startAndEndOfWeek(dateUtils.getNextWeekDate());
         data.dateFrom = date[0];
         data.dateTo = date[1];
         return Model.createOrder(data, user._id);
