@@ -2,17 +2,13 @@ var service = require('./service');
 var def = require('./../../utils/defaultController');
 
 function create (req, res) {
-  if (req.file) {
-    service.importMenu(req.file.buffer)
-      .then(function(menuItem) {
-        res.ok(menuItem);
-      }, function(err) {
-        err.message = 'Error while parsing file';
-        res.badRequest(err);
-      });
-  } else {
-    res.badRequest('Unknown error');
-  }
+  req.body.file = req.file;
+  service.importMenu(req.body)
+    .then(function(menuItem) {
+      res.ok(menuItem);
+    }, function(err) {
+      res.badRequest(err);
+    });
 }
 
 module.exports = {

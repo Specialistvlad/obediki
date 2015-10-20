@@ -33,6 +33,8 @@ var files = {
     'bower_components/angularUtils-pagination/dirPagination.js',
     'bower_components/bootstrap/dist/js/bootstrap.js',
     'bower_components/bootstrap-sweetalert/lib/sweet-alert.js',
+    'bower_components/moment/moment.js',
+    'bower_components/bootstrap-daterangepicker/daterangepicker.js',
     'bower_components/lodash/lodash.js',
     prefix+'/*.js',
     prefix+'/resources/*.js',
@@ -48,6 +50,7 @@ var files = {
     'bower_components/bootstrap-social/bootstrap-social.css',
     'bower_components/font-awesome/css/font-awesome.css',
     'bower_components/bootstrap-sweetalert/lib/sweet-alert.css',
+    'bower_components/bootstrap-daterangepicker/daterangepicker.css',
     prefix+'/assets/css/*.scss'],
   fonts: [
     'bower_components/bootstrap/dist/fonts/*',

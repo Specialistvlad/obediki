@@ -11,12 +11,14 @@ var schema = mongoose.Schema({
     type: 'Boolean',
     default: false
   },
+  dateFrom: Date,
+  dateTo: Date,
   importedFrom: String,
   '0': [MenuItem],
   '1': [MenuItem],
   '2': [MenuItem],
   '3': [MenuItem],
-  '4': [MenuItem]
+  '4': [MenuItem],
 });
 
 schema.plugin(require('mongoose-timestamp'));
@@ -25,8 +27,11 @@ schema.plugin(require('mongoose-unique-validator'));
 schema.statics.list = function list () {
   var pattern = {
     approved: 1,
-    createdAt: 1,
     seen: 1,
+    dateFrom: 1,
+    dateTo: 1,
+    importedFrom: 1,
+    createdAt: 1,
   };
 
   return this.find({}, pattern).sort({createdAt: -1});

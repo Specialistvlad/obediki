@@ -3,5 +3,6 @@ angular.module('app').controller('NavigationController', [
   function($scope, AuthService, Session) {
     $scope.auth = AuthService;
     $scope.user = Session.user;
+    $scope.currentDate = new Date();
   }
 ]);

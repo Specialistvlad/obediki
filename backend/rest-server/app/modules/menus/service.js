@@ -1,9 +1,19 @@
-var Model = require('./model');
-var vikiImport = require('./viki-import');
 var _ = require('lodash');
+var dateUtils = require('../../utils/dateUtils');
 
-function importMenu(buffer) {
-  return vikiImport(buffer, { type: 'binary' }).then(Model.createMenu);
+var Model = require('./model');
+var validation = require('./validation');
+var vikiImport = require('./vendor-parsers/viki');
+
+function importMenu(data) {
+  return validation.importMenu(data)
+    .then(() => vikiImport(data.file.buffer, { type: 'binary' }))
+    .then(menu => {
+      var week = dateUtils.startAndEndOfWeek(data.dateFrom);
+      menu.dateFrom = week[0];
+      menu.dateTo = week[1];
+      return Model.createMenu(menu);
+    });
 }
 
 function list() {

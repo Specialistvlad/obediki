@@ -17,7 +17,7 @@ angular.module('app').service('Session', function (sessionsResource, $cookies) {
     } catch (e) {
       this.user = null;
     } finally {
-      console.log(this.user ? 'User found!' : 'Can\'t find user');
+      // console.log(this.user ? 'User found!' : 'Can\'t find user');
     }
   };
 })

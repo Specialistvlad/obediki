@@ -4,7 +4,6 @@ var userRoles = require('./../../config').userRoles;
 var dictUserRoles = require('./../dicts/user-roles').keys;
 
 module.exports = function(app) {
-  // Authentication
   var roles = new ConnectRoles({
     failureHandler: failureHandler,
     userProperty: 'user'
@@ -19,7 +18,6 @@ function authorizationHandler(req, action) {
     if (req.user.role && dictUserRoles.indexOf(req.user.role) > -1 && userRoles[req.user.role]) {
       return userRoles[req.user.role].indexOf(action) > -1;
     } else {
-      //console.log('User or his role not found!', req.user);
       return false;
     }
   } else {
